@@ -1,0 +1,15 @@
+{
+  "name": "cntdys",
+  "version": "1.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Ziga Vidic <zigomir@gmail.com> (https://zigomir.com/)",
+  "license": "MIT",
+  "dependencies": {
+    "typescript": "^2.3.4"
+  }
+}
