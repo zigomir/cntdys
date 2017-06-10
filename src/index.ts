@@ -13,8 +13,6 @@
 //   year: Year
 // }
 
-// type DayName = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday'
-
 // type MonthName =
 //   | 'January'
 //   | 'February'
@@ -56,4 +54,52 @@ export function listDays(year: number, month: MonthNumber) {
   ]
 
   return weeks
+}
+
+// TODO: calendar with days - go with columns instead
+// we always have 6 (at most) weeks (see October 2016)
+// so this means we need to list 6 mondays, 6 tuesdays, 6 wednesdays etc...
+
+// TODO: how to combine these two?
+type DayInWeek = 0 | 1 | 2 | 3 | 4 | 5  | 6
+type DayName = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday'
+
+export interface Day {
+  name: DayName // this is actually computable
+  dayInWeek: DayInWeek
+  dayInMonth: number
+  year: number
+  month: MonthNumber
+}
+
+export function calendarMonth(year: number, month: MonthNumber): Day[][] {
+  // const a = new Date('3/1/2016')
+  // const firstDayInMonth = new Date(`${month}/1/${year}`)
+  const firstDayInMonth = new Date(year, month - 1)
+  const dayInWeek = firstDayInMonth.getDay()
+  // var c = a.getDay() // tuesday
+
+  return [
+    [
+      {
+        name: 'Monday',
+        dayInWeek: 0,
+        dayInMonth: 29, // taken from previous month
+        year: 2016,
+        month: 2
+      },
+      {
+        name: 'Tuesday',
+        dayInWeek: 1,
+        dayInMonth: 1,
+        year: 2016,
+        month: 3
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    []
+  ]
 }
