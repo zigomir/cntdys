@@ -2,14 +2,34 @@
   "name": "cntdys",
   "version": "1.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "format": "prettier --single-quote --no-semi --print-width 120 --write **/*.ts"
   },
-  "keywords": [],
+  "jest": {
+    "testEnvironment": "node",
+    "transform": {
+      "^.+\\.ts?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ]
+  },
+  "keywords": [
+    "calendar",
+    "date picker",
+    "date range selector"
+  ],
   "author": "Ziga Vidic <zigomir@gmail.com> (https://zigomir.com/)",
   "license": "MIT",
   "dependencies": {
+    "@types/jest": "^19.2.4",
+    "jest": "^20.0.4",
+    "prettier": "^1.4.4",
+    "ts-jest": "^20.0.6",
     "typescript": "^2.3.4"
   }
 }
