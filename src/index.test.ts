@@ -1,4 +1,12 @@
-import { getDaysInMonth, listDays, calendarMonth, getPreviousMonth, getNextMonth, getPreviousDay } from './index'
+import {
+  getDaysInMonth,
+  listDays,
+  calendarMonth,
+  getPreviousMonth,
+  getNextMonth,
+  getPreviousDay,
+  getNextDay
+} from './index'
 import { Day, Month, MonthEnum, DayEnum } from './types'
 
 test('get days in month', () => {
@@ -27,63 +35,130 @@ test('prints out whole month', () => {
 })
 
 test('getPreviousMonth', () => {
-  expect(getPreviousMonth(2016, 1)).toEqual({
-    year: 2015,
-    month: 12
-  } as Month)
+  expect(getPreviousMonth(2016, 1)).toEqual(
+    {
+      year: 2015,
+      month: 12
+    } as Month
+  )
 
-  expect(getPreviousMonth(2016, 2)).toEqual({
-    year: 2016,
-    month: 1
-  } as Month)
+  expect(getPreviousMonth(2016, 2)).toEqual(
+    {
+      year: 2016,
+      month: 1
+    } as Month
+  )
 })
 
 test('getNextMonth', () => {
-  expect(getNextMonth(2016, 12)).toEqual({
-    year: 2017,
-    month: MonthEnum.January
-  } as Month)
+  expect(getNextMonth(2016, 12)).toEqual(
+    {
+      year: 2017,
+      month: MonthEnum.January
+    } as Month
+  )
 
-  expect(getNextMonth(2016, 1)).toEqual({
-    year: 2016,
-    month: MonthEnum.February
-  } as Month)
+  expect(getNextMonth(2016, 1)).toEqual(
+    {
+      year: 2016,
+      month: MonthEnum.February
+    } as Month
+  )
 })
 
 test('getPreviousDay', () => {
-  expect(getPreviousDay(2016, 1, 1)).toEqual({
-    dayInMonth: 31,
-    dayInWeek: DayEnum.Thursday,
-    month: {
-      year: 2015,
-      month: MonthEnum.December
-    }
-  } as Day)
+  expect(getPreviousDay(2016, 1, 1)).toEqual(
+    {
+      dayInMonth: 31,
+      dayInWeek: DayEnum.Thursday,
+      month: {
+        year: 2015,
+        month: MonthEnum.December
+      }
+    } as Day
+  )
 
-  expect(getPreviousDay(2016, 6, 1)).toEqual({
-    dayInMonth: 31,
-    dayInWeek: DayEnum.Tuesday,
-    month: {
-      year: 2016,
-      month: MonthEnum.May
-    }
-  } as Day)
+  expect(getPreviousDay(2016, 6, 1)).toEqual(
+    {
+      dayInMonth: 31,
+      dayInWeek: DayEnum.Tuesday,
+      month: {
+        year: 2016,
+        month: MonthEnum.May
+      }
+    } as Day
+  )
 
-  expect(getPreviousDay(2016, 1, 2)).toEqual({
+  expect(getPreviousDay(2016, 1, 2)).toEqual(
+    {
+      dayInMonth: 1,
+      dayInWeek: DayEnum.Friday,
+      month: {
+        year: 2016,
+        month: MonthEnum.January
+      }
+    } as Day
+  )
+
+  expect(getPreviousDay(2016, 12, 31)).toEqual(
+    {
+      dayInMonth: 30,
+      dayInWeek: DayEnum.Friday,
+      month: {
+        year: 2016,
+        month: MonthEnum.December
+      }
+    } as Day
+  )
+})
+
+test('getNextDay', () => {
+  expect(getNextDay(2016, 2, 29)).toEqual(
+    {
+      dayInMonth: 1,
+      dayInWeek: DayEnum.Tuesday,
+      month: {
+        year: 2016,
+        month: MonthEnum.March
+      }
+    } as Day
+  )
+
+  expect(getNextDay(2016, 6, 1)).toEqual(
+    {
+      dayInMonth: 2,
+      dayInWeek: DayEnum.Thursday,
+      month: {
+        year: 2016,
+        month: MonthEnum.June
+      }
+    } as Day
+  )
+
+  expect(getNextDay(2016, 12, 31)).toEqual({
     dayInMonth: 1,
-    dayInWeek: DayEnum.Friday,
+    dayInWeek: DayEnum.Sunday,
     month: {
-      year: 2016,
+      year: 2017,
       month: MonthEnum.January
     }
   } as Day)
 
-  expect(getPreviousDay(2016, 12, 31)).toEqual({
-    dayInMonth: 30,
-    dayInWeek: DayEnum.Friday,
+  expect(getNextDay(2016, 2, 28)).toEqual({
+    dayInMonth: 29,
+    dayInWeek: DayEnum.Monday,
     month: {
       year: 2016,
-      month: MonthEnum.December
+      month: MonthEnum.February
+    }
+  } as Day)
+
+  expect(getNextDay(2017, 2, 28)).toEqual({
+    dayInMonth: 1,
+    dayInWeek: DayEnum.Wednesday,
+    month: {
+      year: 2017,
+      month: MonthEnum.March
     }
   } as Day)
 })

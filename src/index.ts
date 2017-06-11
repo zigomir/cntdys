@@ -79,6 +79,31 @@ export function getPreviousDay(year: Year, month: MonthNumber, day: number): Day
   }
 }
 
+export function getNextDay(year: Year, month: MonthNumber, day: number): Day {
+  const isLastDayInMonth = (year: Year, month: MonthNumber, day: number) => getDaysInMonth(year, month) === day
+  if (isLastDayInMonth(year, month, day)) {
+    const nextMonth = getNextMonth(year, month)
+    const nextDay = new Date(Date.UTC(nextMonth.year, nextMonth.month - 1, 1))
+
+    return {
+      dayInMonth: nextDay.getUTCDate(),
+      dayInWeek: nextDay.getUTCDay(),
+      month: nextMonth
+    }
+  }
+
+  const nextDay = new Date(Date.UTC(year, month - 1, day + 1))
+
+  return {
+    dayInMonth: nextDay.getUTCDate(),
+    dayInWeek: nextDay.getUTCDay(),
+    month: {
+      year: year,
+      month: month
+    }
+  }
+}
+
 // TODO: calendar with days - go with columns instead - nah…
 // we always have 6 (at most) weeks (see October 2016)
 // so this means we need to list 6 mondays, 6 tuesdays, 6 wednesdays etc...
