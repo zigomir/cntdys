@@ -9,10 +9,11 @@
   ],
   "author": "Ziga Vidic <zigomir@gmail.com> (https://zigomir.com/)",
   "license": "MIT",
-  "main": "src/main.ts",
+  "main": "dist/bundle.min.js",
+  "module": "dist/main.js",
   "scripts": {
     "test": "jest",
-    "build": "tsc && rollup --config && rollup --config rollup.config.min.js",
+    "build": "tsc && rollup --config",
     "format": "prettier --single-quote --no-semi --print-width 120 --write {**/*.ts,*.js}"
   },
   "jest": {

@@ -1,4 +1,9 @@
+import uglify from 'rollup-plugin-uglify'
+
 export default {
   entry: 'dist/main.js',
-  targets: [{ dest: 'dist/bundle.cjs.js', format: 'cjs' }, { dest: 'dist/bundle.es.js', format: 'es' }]
+  dest: 'dist/bundle.min.js',
+  moduleName: 'cntdys',
+  format: 'iife',
+  plugins: [uglify()]
 }
