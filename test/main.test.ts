@@ -1,5 +1,5 @@
-import { getDaysInMonth, calendarMonth, getPreviousMonth, getNextMonth, getPreviousDay, getNextDay } from './index'
-import { Day, Month, MonthEnum, DayEnum } from './types'
+import { getDaysInMonth, calendarMonth, getPreviousMonth, getNextMonth, getPreviousDay, getNextDay } from '../src/main'
+import { Day, Month, MonthEnum, DayEnum } from '../src/types'
 
 test('get days in month', () => {
   expect(getDaysInMonth(2016, 2)).toBe(29)
