@@ -12,3 +12,7 @@ output: 2d table of days in month per week
 ## i am not satisfied with any web components for date picking
 
 i like how macOS calender looks like and AirBnb's range picker.
+
+## testing idea
+
+use `moment.js` for testing if all calendars look correct

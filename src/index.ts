@@ -1,4 +1,4 @@
-import { Year, Day, Month, MonthNumber } from './types'
+import { Year, Day, Month, MonthNumber, DayEnum } from './types'
 
 export function getDaysInMonth(year: Year, month: MonthNumber): number {
   const daysInMonth = [31, -1, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
@@ -104,46 +104,40 @@ export function getNextDay(year: Year, month: MonthNumber, day: number): Day {
   }
 }
 
-// TODO: calendar with days - go with columns instead - nah…
-// we always have 6 (at most) weeks (see October 2016)
-// so this means we need to list 6 mondays, 6 tuesdays, 6 wednesdays etc...
 export function calendarMonth(year: number, month: MonthNumber): Day[][] {
-  // const a = new Date('3/1/2016')
-  // const firstDayInMonth = new Date(`${month}/1/${year}`)
-  const firstDayInMonth = new Date(Date.UTC(year, month - 1))
-  const firstDayInMonthDayInWeek = firstDayInMonth.getUTCDay()
-  // const firstDayInMonthDayInMonth = firstDayInMonth.getDate() // always 1
-  // var c = a.getDay() // tuesday
-  // console.log(firstDayInMonthDayInWeek, firstDayInMonthDayInMonth)
-  // if (firstDayInMonthDayInWeek > 1) {
-  //   console.log('go back')
-  // }
-  // TODO: go day by day back until you hit monday or start of the week
-  // go day by day forward until you hit sunday or end of the week
+  let weeks: Day[] = []
+
+  const firstDayInMonth = new Date(Date.UTC(year, month - 1, 1))
+  let startingDay: Day = {
+    dayInMonth: firstDayInMonth.getUTCDate(),
+    dayInWeek: firstDayInMonth.getUTCDay(),
+    month: { month, year }
+  }
+
+  // go back to first monday
+  if (startingDay.dayInWeek !== DayEnum.Monday) {
+    let previousDay = getPreviousDay(year, month, firstDayInMonth.getUTCDate())
+
+    while (previousDay.dayInWeek !== DayEnum.Monday) {
+      previousDay = getPreviousDay(year, month, firstDayInMonth.getUTCDate())
+    }
+
+    startingDay = previousDay
+  }
+
+  let currentDay = Object.assign({}, startingDay)
+  // then go next day up until all 42 (6 weeks) are filled
+  while (weeks.length < 42) {
+    weeks.push(currentDay)
+    currentDay = getNextDay(currentDay.month.year, currentDay.month.month, currentDay.dayInMonth)
+  }
 
   return [
-    [
-      {
-        dayInWeek: 1,
-        dayInMonth: 29, // taken from previous month
-        month: {
-          year: 2016,
-          month: 1
-        }
-      },
-      {
-        dayInWeek: 2,
-        dayInMonth: 1,
-        month: {
-          year: 2016,
-          month: 3
-        }
-      }
-    ],
-    [],
-    [],
-    [],
-    [],
-    []
+    weeks.slice(0, 7),
+    weeks.slice(7, 14),
+    weeks.slice(14, 21),
+    weeks.slice(21, 28),
+    weeks.slice(28, 35),
+    weeks.slice(35, 42)
   ]
 }
