@@ -11,21 +11,6 @@ export function getDaysInMonth(year: Year, month: MonthNumber): number {
   return daysInMonth[month - 1]
 }
 
-export function listDays(year: Year, month: MonthNumber) {
-  const daysInMonth = getDaysInMonth(year, month)
-  const allDays = [...Array(daysInMonth).keys()].map(d => d + 1)
-
-  const weeks = [
-    allDays.slice(0, 7),
-    allDays.slice(7, 14),
-    allDays.slice(14, 21),
-    allDays.slice(21, 28),
-    allDays.slice(28, 31)
-  ]
-
-  return weeks
-}
-
 export function getPreviousMonth(year: Year, month: MonthNumber): Month {
   if (month === 1) {
     return {
