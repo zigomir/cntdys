@@ -1,18 +1,20 @@
 # count them days
 
-> tiny calendar
+> calendar without unnecessary bytes
 
-## api
+## why
 
-### low level
+i am not satisfied with moment.js + jquery combo to have a simple date picker
 
-input: year / month
-output: 2d table of days in month per week
+## goal(s)
 
-## i am not satisfied with any web components for date picking
+- separate calendar logic from ui
+- separate logic from data
+- render with:
+  - svelte (no runtime)
+  - custom elements
 
-i like how macOS calender looks like and AirBnb's range picker.
+## inspiration(s)
 
-## testing idea
-
-use `moment.js` for testing if all calendars look correct
+- macOS calendar
+- AirBnb DateRangePicker
