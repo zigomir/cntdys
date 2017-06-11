@@ -127,7 +127,8 @@ export function calendarMonth(year: number, month: MonthNumber): Day[][] {
 
   let currentDay = Object.assign({}, startingDay)
   // then go next day up until all 42 (6 weeks) are filled
-  while (weeks.length < 42) {
+  const MONTH_CALENDAR_DAYS_NUMBER = 42
+  while (weeks.length < MONTH_CALENDAR_DAYS_NUMBER) {
     weeks.push(currentDay)
     currentDay = getNextDay(currentDay.month.year, currentDay.month.month, currentDay.dayInMonth)
   }
@@ -138,6 +139,6 @@ export function calendarMonth(year: number, month: MonthNumber): Day[][] {
     weeks.slice(14, 21),
     weeks.slice(21, 28),
     weeks.slice(28, 35),
-    weeks.slice(35, 42)
+    weeks.slice(35, MONTH_CALENDAR_DAYS_NUMBER)
   ]
 }

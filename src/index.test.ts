@@ -163,65 +163,48 @@ test('getNextDay', () => {
   } as Day)
 })
 
-test('print out calendar month by days', () => {
-  expect(calendarMonth(2016, 3)[0][0]).toEqual(
-    {
-      dayInWeek: DayEnum.Monday,
-      dayInMonth: 29,
-      month: {
-        year: 2016,
-        month: 2
-      }
-    } as Day
-  )
-  expect(calendarMonth(2016, 3)[0][1]).toEqual(
-    {
-      dayInWeek: DayEnum.Tuesday,
-      dayInMonth: 1,
-      month: {
-        year: 2016,
-        month: 3
-      }
-    } as Day
-  )
-  expect(calendarMonth(2016, 3)[0][2]).toEqual(
-    {
-      dayInWeek: DayEnum.Wednesday,
-      dayInMonth: 2,
-      month: {
-        year: 2016,
-        month: 3
-      }
-    } as Day
-  )
-  expect(calendarMonth(2016, 3)[0][6]).toEqual(
-    {
-      dayInWeek: DayEnum.Sunday,
-      dayInMonth: 6,
-      month: {
-        year: 2016,
-        month: 3
-      }
-    } as Day
-  )
-  expect(calendarMonth(2016, 3)[2][3]).toEqual(
-    {
-      dayInWeek: DayEnum.Thursday,
-      dayInMonth: 17,
-      month: {
-        year: 2016,
-        month: 3
-      }
-    } as Day
-  )
-  expect(calendarMonth(2016, 3)[5][6]).toEqual(
-    {
-      dayInWeek: DayEnum.Sunday,
-      dayInMonth: 10,
-      month: {
-        year: 2016,
-        month: 4
-      }
-    } as Day
-  )
+test('calendarMonth', () => {
+  const month: Month = { month: 3, year: 2016}
+  const prevMonth = getPreviousMonth(month.year, month.month)
+  const nextMonth = getNextMonth(month.year, month.month)
+  const calendar = calendarMonth(month.year, month.month)
+  const numberOfWeeks = calendar.length
+
+  expect(numberOfWeeks).toBe(6)
+
+  for (let i = 0; i < numberOfWeeks; i++) {
+    expect(calendar[i].length).toBe(7)
+  }
+
+  expect(calendar[0][0]).toEqual({
+    dayInWeek: DayEnum.Monday,
+    dayInMonth: 29,
+    month: prevMonth
+  } as Day)
+  expect(calendar[0][1]).toEqual({
+    dayInWeek: DayEnum.Tuesday,
+    dayInMonth: 1,
+    month
+  } as Day)
+  expect(calendar[0][2]).toEqual({
+    dayInWeek: DayEnum.Wednesday,
+    dayInMonth: 2,
+    month
+  } as Day)
+  expect(calendar[0][6]).toEqual({
+    dayInWeek: DayEnum.Sunday,
+    dayInMonth: 6,
+    month
+  } as Day)
+  expect(calendar[2][3]).toEqual({
+    dayInWeek: DayEnum.Thursday,
+    dayInMonth: 17,
+    month
+  } as Day)
+  expect(calendar[5][6]).toEqual({
+    dayInWeek: DayEnum.Sunday,
+    dayInMonth: 10,
+    month: nextMonth
+  } as Day)
+  expect(calendar[5][7]).toBe(undefined)
 })
