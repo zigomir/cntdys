@@ -105,7 +105,7 @@ export function getNextDay(year: Year, month: MonthNumber, day: number): Day {
 }
 
 export function calendarMonth(year: number, month: MonthNumber): Day[][] {
-  let weeks: Day[] = []
+  let days: Day[] = []
 
   const firstDayInMonth = new Date(Date.UTC(year, month - 1, 1))
   let startingDay: Day = {
@@ -128,17 +128,17 @@ export function calendarMonth(year: number, month: MonthNumber): Day[][] {
   let currentDay = Object.assign({}, startingDay)
   // then go next day up until all 42 (6 weeks) are filled
   const MONTH_CALENDAR_DAYS_NUMBER = 42
-  while (weeks.length < MONTH_CALENDAR_DAYS_NUMBER) {
-    weeks.push(currentDay)
+  while (days.length < MONTH_CALENDAR_DAYS_NUMBER) {
+    days.push(currentDay)
     currentDay = getNextDay(currentDay.month.year, currentDay.month.month, currentDay.dayInMonth)
   }
 
   return [
-    weeks.slice(0, 7),
-    weeks.slice(7, 14),
-    weeks.slice(14, 21),
-    weeks.slice(21, 28),
-    weeks.slice(28, 35),
-    weeks.slice(35, MONTH_CALENDAR_DAYS_NUMBER)
+    days.slice(0, 7),
+    days.slice(7, 14),
+    days.slice(14, 21),
+    days.slice(21, 28),
+    days.slice(28, 35),
+    days.slice(35, MONTH_CALENDAR_DAYS_NUMBER)
   ]
 }
