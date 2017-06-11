@@ -203,7 +203,7 @@ test('calendarMonth (june 2017)', () => {
   const month: Month = { month: 6, year: 2017 }
   const prevMonth = getPreviousMonth(month.year, month.month)
   const nextMonth = getNextMonth(month.year, month.month)
-  const calendar = calendarMonth(month.year, month.month) // june 2017 dies here :o
+  const calendar = calendarMonth(month.year, month.month)
 
   expect(calendar[0][0]).toEqual(
     {
@@ -247,4 +247,16 @@ test('calendarMonth (june 2017)', () => {
       month: nextMonth
     } as Day
   )
+})
+
+test('calendarMonth has days in right order', () => {
+  const calendar = calendarMonth(2017, 6)
+  for (let i = 0; i < calendar.length; i++) {
+    expect(calendar[i].length).toBe(7)
+    for (let j = 0; j < calendar[i].length; j++) {
+      expect(calendar[i][j].dayInWeek).toBe(j < 6 ? j + 1 : 0)
+      expect(calendar[i][j].dayInMonth >= 1).toBeTruthy()
+      expect(calendar[i][j].dayInMonth <= 31).toBeTruthy()
+    }
+  }
 })
