@@ -24,13 +24,13 @@ export interface Month {
 // type Year = [Month, Month, Month, Month, Month, Month, Month, Month, Month, Month, Month, Month]
 
 export enum DayEnum {
+  Sunday, // sunday = 0 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getDay
   Monday,
   Tuesday,
   Wednesday,
   Thursday,
   Friday,
-  Saturday,
-  Sunday
+  Saturday
 }
 
 export interface Day {

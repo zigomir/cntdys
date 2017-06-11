@@ -1,4 +1,4 @@
-import { getDaysInMonth, listDays, calendarMonth, getPreviousMonth, getNextMonth } from './index'
+import { getDaysInMonth, listDays, calendarMonth, getPreviousMonth, getNextMonth, getPreviousDay } from './index'
 import { Day, Month, MonthEnum, DayEnum } from './types'
 
 test('get days in month', () => {
@@ -50,26 +50,64 @@ test('getNextMonth', () => {
   } as Month)
 })
 
-test('print out calendar month by days', () => {
-  expect(calendarMonth(2016, 3).length).toBe(6) // calendar month can be stretched over 6 weeks
-  expect(calendarMonth(2016, 3)[0][0]).toEqual(
-    {
-      dayInWeek: DayEnum.Monday,
-      dayInMonth: 29,
-      month: {
-        year: 2016,
-        month: 1
-      }
-    } as Day
-  )
-  expect(calendarMonth(2016, 3)[0][1]).toEqual(
-    {
-      dayInWeek: DayEnum.Tuesday,
-      dayInMonth: 1,
-      month: {
-        year: 2016,
-        month: 3
-      }
-    } as Day
-  )
+test('getPreviousDay', () => {
+  expect(getPreviousDay(2016, 1, 1)).toEqual({
+    dayInMonth: 31,
+    dayInWeek: DayEnum.Thursday,
+    month: {
+      year: 2015,
+      month: MonthEnum.December
+    }
+  } as Day)
+
+  expect(getPreviousDay(2016, 6, 1)).toEqual({
+    dayInMonth: 31,
+    dayInWeek: DayEnum.Tuesday,
+    month: {
+      year: 2016,
+      month: MonthEnum.May
+    }
+  } as Day)
+
+  expect(getPreviousDay(2016, 1, 2)).toEqual({
+    dayInMonth: 1,
+    dayInWeek: DayEnum.Friday,
+    month: {
+      year: 2016,
+      month: MonthEnum.January
+    }
+  } as Day)
+
+  expect(getPreviousDay(2016, 12, 31)).toEqual({
+    dayInMonth: 30,
+    dayInWeek: DayEnum.Friday,
+    month: {
+      year: 2016,
+      month: MonthEnum.December
+    }
+  } as Day)
 })
+
+// test('print out calendar month by days', () => {
+//   expect(calendarMonth(2016, 3).length).toBe(6) // calendar month can be stretched over 6 weeks
+//   expect(calendarMonth(2016, 3)[0][0]).toEqual(
+//     {
+//       dayInWeek: DayEnum.Monday,
+//       dayInMonth: 29,
+//       month: {
+//         year: 2016,
+//         month: 1
+//       }
+//     } as Day
+//   )
+//   expect(calendarMonth(2016, 3)[0][1]).toEqual(
+//     {
+//       dayInWeek: DayEnum.Tuesday,
+//       dayInMonth: 1,
+//       month: {
+//         year: 2016,
+//         month: 3
+//       }
+//     } as Day
+//   )
+// })
