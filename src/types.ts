@@ -21,6 +21,7 @@ export interface Month {
   month: MonthEnum
 }
 
+// every enum specified here and not used in code is unnecessary byte in build file
 export enum DayEnum {
   Sunday, // sunday = 0 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getDay
   Monday,

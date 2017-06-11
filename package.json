@@ -9,11 +9,11 @@
   ],
   "author": "Ziga Vidic <zigomir@gmail.com> (https://zigomir.com/)",
   "license": "MIT",
-  "main": "src/index.ts",
+  "main": "src/main.ts",
   "scripts": {
     "test": "jest",
-    "build": "rollup --config",
-    "format": "prettier --single-quote --no-semi --print-width 120 --write {**/*.ts,rollup.config.js}"
+    "build": "rollup --config && rollup --config rollup.config.min.js",
+    "format": "prettier --single-quote --no-semi --print-width 120 --write {**/*.ts,*.js}"
   },
   "jest": {
     "testEnvironment": "node",
