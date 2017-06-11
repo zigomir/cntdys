@@ -1,10 +1,10 @@
-import { Year, Day, Month, MonthNumber, DayEnum } from './types'
+import { Year, Day, Month, MonthNumber, DayEnum, MonthEnum } from './types'
 
 export function getDaysInMonth(year: Year, month: MonthNumber): number {
   const daysInMonth = [31, -1, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
   // naive leap year implementation
-  if (month === 2) {
+  if (month === MonthEnum.February) {
     return year % 4 === 0 ? 29 : 28
   }
 
@@ -12,10 +12,10 @@ export function getDaysInMonth(year: Year, month: MonthNumber): number {
 }
 
 export function getPreviousMonth(year: Year, month: MonthNumber): Month {
-  if (month === 1) {
+  if (month === MonthEnum.January) {
     return {
       year: year - 1,
-      month: 12
+      month: MonthEnum.December
     }
   }
 
@@ -26,7 +26,7 @@ export function getPreviousMonth(year: Year, month: MonthNumber): Month {
 }
 
 export function getNextMonth(year: Year, month: MonthNumber): Month {
-  if (month === 12) {
+  if (month === MonthEnum.December) {
     return {
       year: year + 1,
       month: 1
@@ -90,8 +90,6 @@ export function getNextDay(year: Year, month: MonthNumber, day: number): Day {
 }
 
 export function calendarMonth(year: number, month: MonthNumber): Day[][] {
-  let days: Day[] = []
-
   const firstDayInMonth = new Date(Date.UTC(year, month - 1, 1))
   let startingDay: Day = {
     dayInMonth: firstDayInMonth.getUTCDate(),
@@ -110,20 +108,24 @@ export function calendarMonth(year: number, month: MonthNumber): Day[][] {
     startingDay = previousDay
   }
 
+  const DAYS_IN_WEEK = 7
+  const WEEKS_IN_CALENDAR = 6
+  const MONTH_CALENDAR_DAYS_NUMBER = DAYS_IN_WEEK * WEEKS_IN_CALENDAR
+
+  let days: Day[] = []
   let currentDay = Object.assign({}, startingDay)
   // then go next day up until all 42 (6 weeks) are filled
-  const MONTH_CALENDAR_DAYS_NUMBER = 42
   while (days.length < MONTH_CALENDAR_DAYS_NUMBER) {
     days.push(currentDay)
     currentDay = getNextDay(currentDay.month.year, currentDay.month.month, currentDay.dayInMonth)
   }
 
   return [
-    days.slice(0, 7),
-    days.slice(7, 14),
-    days.slice(14, 21),
-    days.slice(21, 28),
-    days.slice(28, 35),
-    days.slice(35, MONTH_CALENDAR_DAYS_NUMBER)
+    days.slice(DAYS_IN_WEEK * 0, DAYS_IN_WEEK * 1),
+    days.slice(DAYS_IN_WEEK * 1, DAYS_IN_WEEK * 2),
+    days.slice(DAYS_IN_WEEK * 2, DAYS_IN_WEEK * 3),
+    days.slice(DAYS_IN_WEEK * 3, DAYS_IN_WEEK * 4),
+    days.slice(DAYS_IN_WEEK * 4, DAYS_IN_WEEK * 5),
+    days.slice(DAYS_IN_WEEK * 5, DAYS_IN_WEEK * 6)
   ]
 }

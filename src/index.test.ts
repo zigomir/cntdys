@@ -1,11 +1,4 @@
-import {
-  getDaysInMonth,
-  calendarMonth,
-  getPreviousMonth,
-  getNextMonth,
-  getPreviousDay,
-  getNextDay
-} from './index'
+import { getDaysInMonth, calendarMonth, getPreviousMonth, getNextMonth, getPreviousDay, getNextDay } from './index'
 import { Day, Month, MonthEnum, DayEnum } from './types'
 
 test('get days in month', () => {
