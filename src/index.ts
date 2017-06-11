@@ -101,10 +101,10 @@ export function calendarMonth(year: number, month: MonthNumber): Day[][] {
 
   // go back to first monday
   if (startingDay.dayInWeek !== DayEnum.Monday) {
-    let previousDay = getPreviousDay(year, month, firstDayInMonth.getUTCDate())
+    let previousDay = getPreviousDay(startingDay.month.year, startingDay.month.month, startingDay.dayInMonth)
 
     while (previousDay.dayInWeek !== DayEnum.Monday) {
-      previousDay = getPreviousDay(year, month, firstDayInMonth.getUTCDate())
+      previousDay = getPreviousDay(previousDay.month.year, previousDay.month.month, previousDay.dayInMonth)
     }
 
     startingDay = previousDay

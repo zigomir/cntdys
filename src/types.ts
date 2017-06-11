@@ -1,5 +1,5 @@
 export enum MonthEnum {
-  January = 1,
+  January = 1, // it is 0 in JS Date, but starting with 1 is better as human readable API
   February,
   March,
   April,
@@ -20,8 +20,6 @@ export interface Month {
   year: Year
   month: MonthEnum
 }
-
-// type Year = [Month, Month, Month, Month, Month, Month, Month, Month, Month, Month, Month, Month]
 
 export enum DayEnum {
   Sunday, // sunday = 0 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getDay

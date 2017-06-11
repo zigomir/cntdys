@@ -150,7 +150,7 @@ test('getNextDay', () => {
   )
 })
 
-test('calendarMonth', () => {
+test('calendarMonth (march 2016)', () => {
   const month: Month = { month: 3, year: 2016 }
   const prevMonth = getPreviousMonth(month.year, month.month)
   const nextMonth = getNextMonth(month.year, month.month)
@@ -158,11 +158,10 @@ test('calendarMonth', () => {
   const numberOfWeeks = calendar.length
 
   expect(numberOfWeeks).toBe(6)
-
   for (let i = 0; i < numberOfWeeks; i++) {
     expect(calendar[i].length).toBe(7)
   }
-
+  expect(calendar[5][7]).toBe(undefined)
   expect(calendar[0][0]).toEqual(
     {
       dayInWeek: DayEnum.Monday,
@@ -205,5 +204,54 @@ test('calendarMonth', () => {
       month: nextMonth
     } as Day
   )
-  expect(calendar[5][7]).toBe(undefined)
+})
+
+test('calendarMonth (june 2017)', () => {
+  const month: Month = { month: 6, year: 2017 }
+  const prevMonth = getPreviousMonth(month.year, month.month)
+  const nextMonth = getNextMonth(month.year, month.month)
+  const calendar = calendarMonth(month.year, month.month) // june 2017 dies here :o
+
+  expect(calendar[0][0]).toEqual(
+    {
+      dayInWeek: DayEnum.Monday,
+      dayInMonth: 29,
+      month: prevMonth
+    } as Day
+  )
+  expect(calendar[0][1]).toEqual(
+    {
+      dayInWeek: DayEnum.Tuesday,
+      dayInMonth: 30,
+      month: prevMonth
+    } as Day
+  )
+  expect(calendar[0][2]).toEqual(
+    {
+      dayInWeek: DayEnum.Wednesday,
+      dayInMonth: 31,
+      month: prevMonth
+    } as Day
+  )
+  expect(calendar[0][3]).toEqual(
+    {
+      dayInWeek: DayEnum.Thursday,
+      dayInMonth: 1,
+      month
+    } as Day
+  )
+  expect(calendar[2][3]).toEqual(
+    {
+      dayInWeek: DayEnum.Thursday,
+      dayInMonth: 15,
+      month
+    } as Day
+  )
+  expect(calendar[5][6]).toEqual(
+    {
+      dayInWeek: DayEnum.Sunday,
+      dayInMonth: 9,
+      month: nextMonth
+    } as Day
+  )
 })
