@@ -99,7 +99,7 @@ export function calendarMonth(year: number, month: MonthNumber): Day[][] {
   return [
     [
       {
-        dayInWeek: 0,
+        dayInWeek: 1,
         dayInMonth: 29, // taken from previous month
         month: {
           year: 2016,
@@ -107,7 +107,7 @@ export function calendarMonth(year: number, month: MonthNumber): Day[][] {
         }
       },
       {
-        dayInWeek: 1,
+        dayInWeek: 2,
         dayInMonth: 1,
         month: {
           year: 2016,

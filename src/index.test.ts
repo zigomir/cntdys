@@ -88,26 +88,26 @@ test('getPreviousDay', () => {
   } as Day)
 })
 
-// test('print out calendar month by days', () => {
-//   expect(calendarMonth(2016, 3).length).toBe(6) // calendar month can be stretched over 6 weeks
-//   expect(calendarMonth(2016, 3)[0][0]).toEqual(
-//     {
-//       dayInWeek: DayEnum.Monday,
-//       dayInMonth: 29,
-//       month: {
-//         year: 2016,
-//         month: 1
-//       }
-//     } as Day
-//   )
-//   expect(calendarMonth(2016, 3)[0][1]).toEqual(
-//     {
-//       dayInWeek: DayEnum.Tuesday,
-//       dayInMonth: 1,
-//       month: {
-//         year: 2016,
-//         month: 3
-//       }
-//     } as Day
-//   )
-// })
+test('print out calendar month by days', () => {
+  expect(calendarMonth(2016, 3).length).toBe(6) // calendar month can be stretched over 6 weeks
+  expect(calendarMonth(2016, 3)[0][0]).toEqual(
+    {
+      dayInWeek: DayEnum.Monday,
+      dayInMonth: 29,
+      month: {
+        year: 2016,
+        month: 1
+      }
+    } as Day
+  )
+  expect(calendarMonth(2016, 3)[0][1]).toEqual(
+    {
+      dayInWeek: DayEnum.Tuesday,
+      dayInMonth: 1,
+      month: {
+        year: 2016,
+        month: 3
+      }
+    } as Day
+  )
+})
