@@ -12,7 +12,7 @@
   "main": "src/main.ts",
   "scripts": {
     "test": "jest",
-    "build": "rollup --config && rollup --config rollup.config.min.js",
+    "build": "tsc && rollup --config && rollup --config rollup.config.min.js",
     "format": "prettier --single-quote --no-semi --print-width 120 --write {**/*.ts,*.js}"
   },
   "jest": {
@@ -31,7 +31,6 @@
     "jest": "^20.0.4",
     "prettier": "^1.4.4",
     "rollup": "^0.42.0",
-    "rollup-plugin-typescript": "^0.8.1",
     "rollup-plugin-uglify": "^2.0.1",
     "ts-jest": "^20.0.6",
     "typescript": "^2.3.4"

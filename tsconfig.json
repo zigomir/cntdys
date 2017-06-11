@@ -2,11 +2,9 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
-    "outDir": "./build",
+    "outDir": "./dist",
     "strict": true,
-    "lib": [
-      "es2017.object"
-    ]
+    "lib": ["es2015", "es2017", "dom"]
   },
   "exclude": [
     "node_modules",
