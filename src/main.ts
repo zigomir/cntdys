@@ -1,4 +1,4 @@
-import { Year, Day, Month, MonthNumber, DayEnum, MonthEnum } from './types'
+import { DayEnum, IDay, IMonth, MonthEnum, MonthNumber, Year } from './types'
 
 export function getDaysInMonth(year: Year, month: MonthNumber): number {
   const daysInMonth = [31, -1, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
@@ -11,35 +11,35 @@ export function getDaysInMonth(year: Year, month: MonthNumber): number {
   return daysInMonth[month - 1]
 }
 
-export function getPreviousMonth(year: Year, month: MonthNumber): Month {
+export function getPreviousMonth(year: Year, month: MonthNumber): IMonth {
   if (month === MonthEnum.January) {
     return {
-      year: year - 1,
-      month: MonthEnum.December
+      month: MonthEnum.December,
+      year: year - 1
     }
   }
 
   return {
-    year: year,
-    month: month - 1
+    month: month - 1,
+    year
   }
 }
 
-export function getNextMonth(year: Year, month: MonthNumber): Month {
+export function getNextMonth(year: Year, month: MonthNumber): IMonth {
   if (month === MonthEnum.December) {
     return {
-      year: year + 1,
-      month: 1
+      month: 1,
+      year: year + 1
     }
   }
 
   return {
-    year: year,
-    month: month + 1
+    month: month + 1,
+    year
   }
 }
 
-export function getPreviousDay(year: Year, month: MonthNumber, day: number): Day {
+export function getPreviousDay(year: Year, month: MonthNumber, day: number): IDay {
   if (day === 1) {
     const prevMonth = getPreviousMonth(year, month)
     const lastDayInPrevMonth = getDaysInMonth(prevMonth.year, prevMonth.month)
@@ -57,15 +57,12 @@ export function getPreviousDay(year: Year, month: MonthNumber, day: number): Day
   return {
     dayInMonth: previousDay.getUTCDate(),
     dayInWeek: previousDay.getUTCDay(),
-    month: {
-      year: year,
-      month: month
-    }
+    month: { month, year }
   }
 }
 
-export function getNextDay(year: Year, month: MonthNumber, day: number): Day {
-  const isLastDayInMonth = (year: Year, month: MonthNumber, day: number) => getDaysInMonth(year, month) === day
+export function getNextDay(year: Year, month: MonthNumber, day: number): IDay {
+  const isLastDayInMonth = (y: Year, m: MonthNumber, d: number) => getDaysInMonth(y, m) === d
   if (isLastDayInMonth(year, month, day)) {
     const nextMonth = getNextMonth(year, month)
     const nextDay = new Date(Date.UTC(nextMonth.year, nextMonth.month - 1, 1))
@@ -82,16 +79,13 @@ export function getNextDay(year: Year, month: MonthNumber, day: number): Day {
   return {
     dayInMonth: nextDay.getUTCDate(),
     dayInWeek: nextDay.getUTCDay(),
-    month: {
-      year: year,
-      month: month
-    }
+    month: { month, year }
   }
 }
 
-export function calendarMonth(year: number, month: MonthNumber): Day[][] {
+export function calendarMonth(year: number, month: MonthNumber): IDay[][] {
   const firstDayInMonth = new Date(Date.UTC(year, month - 1, 1))
-  let startingDay: Day = {
+  let startingDay: IDay = {
     dayInMonth: firstDayInMonth.getUTCDate(),
     dayInWeek: firstDayInMonth.getUTCDay(),
     month: { month, year }
@@ -112,8 +106,8 @@ export function calendarMonth(year: number, month: MonthNumber): Day[][] {
   const WEEKS_IN_CALENDAR = 6
   const MONTH_CALENDAR_DAYS_NUMBER = DAYS_IN_WEEK * WEEKS_IN_CALENDAR
 
-  let days: Day[] = []
-  let currentDay = Object.assign({}, startingDay)
+  const days: IDay[] = []
+  let currentDay = startingDay
   // then go next day up until all 42 (6 weeks) are filled
   while (days.length < MONTH_CALENDAR_DAYS_NUMBER) {
     days.push(currentDay)

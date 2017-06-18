@@ -16,7 +16,7 @@ export const enum MonthEnum {
 export type Year = number
 export type MonthNumber = MonthEnum
 
-export interface Month {
+export interface IMonth {
   year: Year
   month: MonthEnum
 }
@@ -31,8 +31,8 @@ export const enum DayEnum {
   Saturday
 }
 
-export interface Day {
+export interface IDay {
   dayInWeek: DayEnum
   dayInMonth: number
-  month: Month
+  month: IMonth
 }

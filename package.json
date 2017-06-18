@@ -12,7 +12,9 @@
   "main": "dist/bundle.min.js",
   "module": "dist/main.js",
   "scripts": {
-    "test": "jest",
+    "lint": "tslint --project tsconfig.json --type-check **/*.ts",
+    "test:dev": "jest --watch",
+    "test": "npm run lint && jest",
     "build": "tsc && rollup --config",
     "format": "prettier --single-quote --no-semi --print-width 120 --write {**/*.ts,*.js}"
   },
@@ -34,6 +36,8 @@
     "rollup": "^0.42.0",
     "rollup-plugin-uglify": "^2.0.1",
     "ts-jest": "^20.0.6",
+    "tslint": "^5.4.3",
+    "tslint-config-prettier": "^1.1.0",
     "typescript": "^2.3.4"
   }
 }
