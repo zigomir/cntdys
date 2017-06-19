@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <calendar-element></calendar-element>
+    <script src="dist/bundle.min.js"></script>
+    <script>
+      class CalendarElement extends HTMLElement {
+        constructor() {
+          super() // always call super() first in the ctor.
+
+          this.year = 2017
+          this.month = 6
+        }
+        // Called when your element is inserted in the DOM or
+        // immediately after the constructor if it’s already in the DOM
+        connectedCallback() {
+          const calendarDays = window.cntdys.calendarMonth(this.year, this.month)
+          const days = calendarDays
+            .map(week => `
+              <div class="week">${week.map(day => 
+                `<span class="day">${day.dayInMonth}</span>`).join('')}
+              </div>`
+            )
+            .join('')
+
+          const header = `<span class="header">${this.year} - ${this.month}</span>`
+          this.innerHTML = header + days
+        }
+      }
+      // This registers your new tag and associates it with your class
+      window.customElements.define('calendar-element', CalendarElement)
+      console.log(window.cntdys.calendarMonth(2017, 6))
+    </script>
+  </body>
+</html>
