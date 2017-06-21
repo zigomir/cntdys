@@ -83,7 +83,15 @@ export function getNextDay(year: Year, month: MonthNumber, day: number): IDay {
   }
 }
 
-export function calendarMonth(year: number, month: MonthNumber): IDay[][] {
+// make this JS proof
+export function calendarMonth(year: any, month: any): IDay[][] {
+  if (!year || isNaN(parseInt(year, 10)) || parseInt(year, 10) < 1900 || parseInt(year, 10) > 2100) {
+    throw Error('Wrong year. Please use number from 1900 to 2100')
+  }
+  if (!month || isNaN(parseInt(month, 10)) || parseInt(month, 10) < 1 || parseInt(month, 10) > 12) {
+    throw Error('Wrong month. Please use number from 1 to 12')
+  }
+
   const firstDayInMonth = new Date(Date.UTC(year, month - 1, 1))
   let startingDay: IDay = {
     dayInMonth: firstDayInMonth.getUTCDate(),
