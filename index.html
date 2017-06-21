@@ -16,54 +16,75 @@
 
           // TODO: make this dynamic
           this.year = 2017
-          this.month = 6
+          this.month = 7
 
           const isCurrentMonth = (day, month) => day.month.month === month
           const isWeekend = (day) => day.dayInWeek === 6 || day.dayInWeek === 0
 
           const calendarDays = window.cntdys.calendarMonth(this.year, this.month)
-          const days = calendarDays
-            .map(week => `
-              <div class="week">${week.map(day => 
-                `<span class="day${isWeekend(day) ? ' weekend' : ''}${isCurrentMonth(day, this.month) ? ' current-month' : ' other-month'}">${day.dayInMonth}</span>`)
-                .join('')}
-              </div>`
-            )
-            .join('')
+          const days = `<div class="weeks">
+            ${calendarDays
+              .map(week => `
+                <div class="week">${week.map(day => 
+                  `<span class="day${isWeekend(day) ? ' weekend' : ''}${isCurrentMonth(day, this.month) ? ' current-month' : ' other-month'}">${day.dayInMonth}</span>`)
+                  .join('')}
+                </div>`
+              )
+              .join('')}
+          </div>`
 
-          const header = `<div>
-            <span class="header">${this.year} - ${this.month}</span>
+          const header = `<div class="header">
+            <span>${this.year} - ${this.month}</span>
             <div class="week">
-              <span class="day">Mo</span>
-              <span class="day">Tu</span>
-              <span class="day">We</span>
-              <span class="day">Th</span>
-              <span class="day">Fr</span>
-              <span class="day">Sa</span>
-              <span class="day">Su</span>
+              <span class="day day-name">Mo</span>
+              <span class="day day-name">Tu</span>
+              <span class="day day-name">We</span>
+              <span class="day day-name">Th</span>
+              <span class="day day-name">Fr</span>
+              <span class="day day-name">Sa</span>
+              <span class="day day-name">Su</span>
             </div>
           </div>`
           const style = `<style>
             :host {
-              --main-bg-color: green;
+              --main-color: #e4e7e7;
+              --other-day-color: #cacccd;
+              --cell-size: 37px;
+              display: inline-block;
             }
-
+            .weeks {
+              border-left: 1px solid var(--main-color);
+              border-right: 1px solid var(--main-color);
+            }
             .week {
               display: flex;
+              border-bottom: 1px solid var(--main-color);
             }
             .day {
-              width: 30px;
+              width: var(--cell-size);
+              height: var(--cell-size);
               text-align: center;
+              border-right: 1px solid var(--main-color);
+              display: flex;
+              align-self: center;
+              justify-content: center;
+              flex-direction: column;
+            }
+            .day.day-name {
+              border-right: 1px solid transparent;
+            }
+            .day:last-child {
+              border-right: 1px solid transparent;
             }
             .day:hover {
               cursor: default;
             }
             .day.current-month:hover {
               cursor: pointer;
-              background-color: var(--main-bg-color);
+              background-color: var(--main-color);
             }
-            .other-month, .weekend {
-              color: grey;
+            .other-month {
+              color: var(--other-day-color);
             }
           </style>`
 
