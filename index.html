@@ -2,7 +2,7 @@
 <html>
   <head></head>
   <body>
-    <calendar-element></calendar-element>
+    <calendar-element year="2017" month="6" day="1"></calendar-element>
     <p class="week">Test leaking out styles</p>
 
     <!--It is a mess to get Firefox to work :(-->
@@ -11,22 +11,20 @@
     <script src="dist/bundle.min.js"></script>
     <script>
       class CalendarElement extends HTMLElement {
-        constructor() {
-          super() // always call super() first in the ctor.
-
-          // TODO: make this dynamic
-          this.year = 2017
-          this.month = 7
+        connectedCallback() {
+          this.year = parseInt(this.getAttribute('year'))
+          this.month = parseInt(this.getAttribute('month'))
+          this.day = parseInt(this.getAttribute('day'))
 
           const isCurrentMonth = (day, month) => day.month.month === month
           const isWeekend = (day) => day.dayInWeek === 6 || day.dayInWeek === 0
 
-          const calendarDays = window.cntdys.calendarMonth(this.year, this.month)
-          const days = `<div class="weeks">
+          const calendarDays = window.cntdys.calendarMonth(this.year, this.month) // TODO: this should fail fast when values passed in don't look valid!
+          const days = `<div data-action="selectDay" class="weeks">
             ${calendarDays
               .map(week => `
                 <div class="week">${week.map(day => 
-                  `<span class="day${isWeekend(day) ? ' weekend' : ''}${isCurrentMonth(day, this.month) ? ' current-month' : ' other-month'}">${day.dayInMonth}</span>`)
+                  `<span data-day-in-month="${day.dayInMonth}" class="day${isWeekend(day) ? ' weekend' : ''}${isCurrentMonth(day, this.month) ? ' current-month' : ' other-month'}">${day.dayInMonth}</span>`)
                   .join('')}
                 </div>`
               )
@@ -45,6 +43,8 @@
               <span class="day day-name">Su</span>
             </div>
           </div>`
+
+          // TODO: find out how can others style this through JS - CSS variables should enable it, but not sure when in Shadow DOM.
           const style = `<style>
             :host {
               --main-color: #e4e7e7;
@@ -69,6 +69,7 @@
               align-self: center;
               justify-content: center;
               flex-direction: column;
+              user-select: none;
             }
             .day.day-name {
               border-right: 1px solid transparent;
@@ -83,22 +84,43 @@
               cursor: pointer;
               background-color: var(--main-color);
             }
-            .other-month {
+            .day.other-month {
               color: var(--other-day-color);
+              pointer-events: none;
             }
           </style>`
 
           const shadowRoot = this.attachShadow({mode: 'open'})
           shadowRoot.innerHTML = style + header + days
-          // shadow dom won't work with Firefox even with pollyfil :(
-          // https://unpkg.com/@webcomponents/custom-elements@latest
-          // but setting this.innerHTML will :/
-          // this.innerHTML = style + header + days
+          shadowRoot.querySelector('[data-action=selectDay]').addEventListener('click', this.onClick.bind(this))
+        }
+
+        onClick(e) {
+          if (e.target.classList.contains('day')) {
+            this.dispatchEvent(new CustomEvent('date-selected', {
+              detail: { 
+                year: this.year, 
+                month: this.month,
+                day: Number(e.target.dataset.dayInMonth)
+              }, 
+              bubbles: false
+            }))
+          }
+        }
+
+        disconnectedCallback() {
+          this.shadowRoot.querySelector('[data-action=selectDay]').removeEventListener('click')
         }
       }
+
       // This registers your new tag and associates it with your class
       window.customElements.define('calendar-element', CalendarElement)
-      console.log(window.cntdys.calendarMonth(2017, 6))
+
+      const calendar = document.querySelector('calendar-element')
+      calendar.addEventListener('date-selected', (e) => {
+        console.log(e.detail)
+        calendar.setAttribute('day', e.detail.day.toString())
+      })
     </script>
   </body>
 </html>
