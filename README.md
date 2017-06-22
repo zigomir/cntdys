@@ -1,6 +1,6 @@
 # count them days
 
-> calendar without unnecessary bytes
+> 2kb calendar
 
 ## why
 
@@ -18,3 +18,10 @@ i am not satisfied with moment.js + jquery combo to have a simple date picker
 
 - macOS calendar
 - AirBnb DateRangePicker
+
+## todos
+
+- how to get this working in firefox?
+- <script src="https://unpkg.com/@webcomponents/custom-elements@latest"></script>
+- <script src="https://unpkg.com/@webcomponents/shadydom@latest"></script>
+

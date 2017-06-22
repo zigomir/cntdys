@@ -1,4 +1,5 @@
 import { DayEnum, IDay, IMonth, MonthEnum, MonthNumber, Year } from './types'
+import { CalendarElement } from './ui'
 
 export function getDaysInMonth(year: Year, month: MonthNumber): number {
   const daysInMonth = [31, -1, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
@@ -81,6 +82,11 @@ export function getNextDay(year: Year, month: MonthNumber, day: number): IDay {
     dayInWeek: nextDay.getUTCDay(),
     month: { month, year }
   }
+}
+
+export function main() {
+  // This registers your new tag and associates it with your class
+  window.customElements.define('calendar-element', CalendarElement)
 }
 
 export function calendarMonth(year: any, month: any): IDay[][] {
