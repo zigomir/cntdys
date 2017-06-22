@@ -12,6 +12,12 @@
     <script>
       class CalendarElement extends HTMLElement {
         connectedCallback() {
+          const shadowRoot = this.attachShadow({mode: 'open'})
+          this.render = this.render.bind(this)
+          this.render()
+        }
+
+        render() {
           this.year = parseInt(this.getAttribute('year'))
           this.month = parseInt(this.getAttribute('month'))
           this.day = parseInt(this.getAttribute('day'))
@@ -76,10 +82,6 @@
               flex-direction: column;
               user-select: none;
             }
-            .day.selected {
-              background-color: var(--selected-color);
-              color: white;
-            }
             .day.day-name {
               border-right: 1px solid transparent;
             }
@@ -93,21 +95,26 @@
               cursor: pointer;
               background-color: var(--main-color);
             }
+            .day.current-month.selected {
+              background-color: var(--selected-color);
+              color: white;
+            }
             .day.other-month {
               color: var(--other-day-color);
               pointer-events: none;
             }
           </style>`
 
-          const shadowRoot = this.attachShadow({mode: 'open'})
-          shadowRoot.innerHTML = style + header + days
-          shadowRoot.querySelector('[data-action=selectDay]').addEventListener('click', this.onClick.bind(this))
+          this.shadowRoot.innerHTML = style + header + days
+          this.shadowRoot.querySelector('[data-action=selectDay]').addEventListener('click', this.onClick.bind(this))
         }
 
         onClick(e) {
           if (e.target.classList.contains('day')) {
             const newDay = e.target.dataset.dayInMonth
             this.setAttribute('day', newDay)
+            this.render()
+
             this.dispatchEvent(new CustomEvent('date-selected', {
               detail: {
                 year: this.year,
