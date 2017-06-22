@@ -24,4 +24,5 @@ i am not satisfied with moment.js + jquery combo to have a simple date picker
 - how to get this working in firefox?
 - <script src="https://unpkg.com/@webcomponents/custom-elements@latest"></script>
 - <script src="https://unpkg.com/@webcomponents/shadydom@latest"></script>
-
+- export es module
+- try using in vue and preact

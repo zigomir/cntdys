@@ -4,9 +4,10 @@
   <body>
     <calendar-element year="2017" month="6" day="1"></calendar-element>
     <p class="week">Test leaking out styles</p>
-    <script src="dist/bundle.min.js"></script>
+    <!--<script src="dist/bundle.min.js"></script>-->
+    <script src="dist/bundle.js"></script>
     <script>
-      // consumer
+      // Usage
       window.cntdys.main() // run main to get ui
       const calendar = document.querySelector('calendar-element')
       calendar.addEventListener('date-selected', (e) => {
