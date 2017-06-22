@@ -1,18 +1,18 @@
-import { IDay } from './types'
 import { calendarMonth } from './main'
+import { IDay } from './types'
 
 export class CalendarElement extends HTMLElement {
-  year: number
-  month: number
-  day: number
+  private year: number
+  private month: number
+  private day: number
 
-  connectedCallback() {
+  private connectedCallback() {
     const shadowRoot = this.attachShadow({mode: 'open'})
     this.render = this.render.bind(this)
     this.render()
   }
 
-  render() {
+  private render() {
     this.year = Number(this.getAttribute('year'))
     this.month = Number(this.getAttribute('month'))
     this.day = Number(this.getAttribute('day'))
@@ -109,24 +109,24 @@ export class CalendarElement extends HTMLElement {
     }
   }
 
-  onClick(e: Event) {
-    if ((<HTMLElement>e.target).classList.contains('day')) {
-      const newDay = (<HTMLElement>e.target).dataset.dayInMonth
+  private onClick(e: Event) {
+    if ((e.target as HTMLElement).classList.contains('day')) {
+      const newDay = (e.target as HTMLElement).dataset.dayInMonth
       this.setAttribute('day', newDay || '')
       this.render()
 
       this.dispatchEvent(new CustomEvent('date-selected', {
+        bubbles: false,
         detail: {
-          year: this.year,
+          day: Number(newDay),
           month: this.month,
-          day: Number(newDay)
-        },
-        bubbles: false
+          year: this.year
+        }
       }))
     }
   }
 
-  disconnectedCallback() {
+  private disconnectedCallback() {
     if (this.shadowRoot) {
       const element = this.shadowRoot.querySelector('[data-action=selectDay]')
       if (element) {
