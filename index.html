@@ -97,11 +97,13 @@
 
         onClick(e) {
           if (e.target.classList.contains('day')) {
+            const newDay = e.target.dataset.dayInMonth
+            this.setAttribute('day', newDay)
             this.dispatchEvent(new CustomEvent('date-selected', {
-              detail: { 
-                year: this.year, 
+              detail: {
+                year: this.year,
                 month: this.month,
-                day: Number(e.target.dataset.dayInMonth)
+                day: Number(newDay)
               }, 
               bubbles: false
             }))
@@ -119,7 +121,6 @@
       const calendar = document.querySelector('calendar-element')
       calendar.addEventListener('date-selected', (e) => {
         console.log(e.detail)
-        calendar.setAttribute('day', e.detail.day.toString())
       })
     </script>
   </body>
