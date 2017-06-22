@@ -83,7 +83,6 @@ export function getNextDay(year: Year, month: MonthNumber, day: number): IDay {
   }
 }
 
-// make this JS proof
 export function calendarMonth(year: any, month: any): IDay[][] {
   if (!year || isNaN(parseInt(year, 10)) || parseInt(year, 10) < 1900 || parseInt(year, 10) > 2100) {
     throw Error('Wrong year. Please use number from 1900 to 2100')
