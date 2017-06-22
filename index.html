@@ -20,11 +20,15 @@
           const isWeekend = (day) => day.dayInWeek === 6 || day.dayInWeek === 0
 
           const calendarDays = window.cntdys.calendarMonth(this.year, this.month) // TODO: this should fail fast when values passed in don't look valid!
+          const weekendClass = (day) => isWeekend(day) ? 'weekend' : ''
+          const currentMonthClass = (day) => isCurrentMonth(day, this.month) ? ' current-month' : ' other-month'
+          const isSelectedClass = (day) => this.day === day.dayInMonth && this.month === day.month.month && this.year === day.month.year ? 'selected' : ''
+
           const days = `<div data-action="selectDay" class="weeks">
             ${calendarDays
               .map(week => `
-                <div class="week">${week.map(day => 
-                  `<span data-day-in-month="${day.dayInMonth}" class="day${isWeekend(day) ? ' weekend' : ''}${isCurrentMonth(day, this.month) ? ' current-month' : ' other-month'}">${day.dayInMonth}</span>`)
+                <div class="week">${week.map(day =>
+                  `<span data-day-in-month="${day.dayInMonth}" class="day ${isSelectedClass(day)} ${weekendClass(day)} ${currentMonthClass(day)}">${day.dayInMonth}</span>`)
                   .join('')}
                 </div>`
               )
@@ -48,6 +52,7 @@
           const style = `<style>
             :host {
               --main-color: #e4e7e7;
+              --selected-color: #00a699;
               --other-day-color: #cacccd;
               --cell-size: 37px;
               display: inline-block;
@@ -70,6 +75,10 @@
               justify-content: center;
               flex-direction: column;
               user-select: none;
+            }
+            .day.selected {
+              background-color: var(--selected-color);
+              color: white;
             }
             .day.day-name {
               border-right: 1px solid transparent;
@@ -104,7 +113,7 @@
                 year: this.year,
                 month: this.month,
                 day: Number(newDay)
-              }, 
+              },
               bubbles: false
             }))
           }
@@ -118,6 +127,7 @@
       // This registers your new tag and associates it with your class
       window.customElements.define('calendar-element', CalendarElement)
 
+      // consumer
       const calendar = document.querySelector('calendar-element')
       calendar.addEventListener('date-selected', (e) => {
         console.log(e.detail)
