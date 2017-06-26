@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <style>
+      /* Needed for firefox :/ */
+      :root {
+        --main-color: #e4e7e7;
+        --selected-color: #00a699;
+        --other-day-color: #cacccd;
+        --cell-size: 37px;
+        --border-width: 1px;
+      }
+      calendar-element {
+        display: inline-block;
+      }
+    </style>
   </head>
   <body>
     <calendar-element year="2017" month="6" day="1"></calendar-element>
     <p class="week">Test leaking out styles</p>
-    <!--TODO: find minimal and use conditional loading like so: https://jsbin.com/pebacuroma/edit?html,output -->
-    <!--<script src="https://unpkg.com/@webcomponents/webcomponentsjs@1.0.1/webcomponents-lite.js"></script>-->
-    <script src="dist/bundle.js"></script>
+    <!--TODO: use conditional loading like so: https://jsbin.com/pebacuroma/edit?html,output -->
+    <!--Needed for firefox-->
+    <script src="https://unpkg.com/@webcomponents/webcomponentsjs@1.0.1/webcomponents-sd-ce.js"></script>
+    <!--<script src="dist/bundle.js"></script>-->
+    <script src="dist/bundle.min.js"></script>
 
     <script>
       // Usage

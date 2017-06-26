@@ -49,7 +49,8 @@ export class CalendarElement extends HTMLElement {
       </div>
     </div>`
 
-    const style = `<style>
+    // firefox doesn't support :host & you need to say scoped for styles not to leak out
+    const style = `<style scoped>
       :host {
         --main-color: #e4e7e7;
         --selected-color: #00a699;
