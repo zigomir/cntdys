@@ -10,6 +10,11 @@ class CalendarElement extends HTMLElement {
     const shadowRoot = this.attachShadow({mode: 'open'})
     this.render = this.render.bind(this)
     this.render()
+
+    // TODO
+    // if (polyfilled) {
+    //   window.ShadyCSS.applyStyle(this)
+    // }
   }
 
   private render() {
@@ -103,6 +108,10 @@ class CalendarElement extends HTMLElement {
 
     if (this.shadowRoot) {
       this.shadowRoot.innerHTML = style + header + days
+      // TODO
+      // if (polyfilled) {
+      //   window.ShadyCSS.prepareTemplate(this.shadowRoot, 'calendar-element')
+      // }
       const element = this.shadowRoot.querySelector('[data-action=selectDay]')
       if (element) {
         element.addEventListener('click', this.onClick.bind(this))
@@ -137,8 +146,8 @@ class CalendarElement extends HTMLElement {
   }
 }
 
-function loadScript(src: string) {
-  return new Promise(function(resolve, reject) {
+const loadScript = (src: string) => {
+  return new Promise((resolve, reject) => {
     const script = document.createElement('script')
     script.async = true
     script.src = src
@@ -148,15 +157,11 @@ function loadScript(src: string) {
   })
 }
 
-export function loadUi() {
-  let polyfilled = false
-  if ('customElements' in window) {
-      window.customElements.define('calendar-element', CalendarElement)
-  } else {
-    polyfilled = true
-    loadScript('https://unpkg.com/@webcomponents/webcomponentsjs@1.0.1/webcomponents-sd-ce.js')
-     // there is no way around double loading here for firefox :/
-     // otherwise we'd need to async load for Chrome and Safari too, which gives us a flash of no content
-      .then(e => loadScript('dist/bundle.js'))
-  }
+if ('customElements' in window) {
+    window.customElements.define('calendar-element', CalendarElement)
+} else {
+  loadScript('https://unpkg.com/@webcomponents/webcomponentsjs@1.0.1/webcomponents-sd-ce.js')
+  // there is no way around double loading here for firefox :/
+  // otherwise we'd need to async load for Chrome and Safari too, which gives us a flash of no content
+    .then(e => loadScript('dist/bundle.js'))
 }
