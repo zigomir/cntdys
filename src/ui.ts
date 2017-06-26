@@ -1,7 +1,7 @@
 import { calendarMonth } from './main'
 import { IDay } from './types'
 
-export class CalendarElement extends HTMLElement {
+class CalendarElement extends HTMLElement {
   private year: number
   private month: number
   private day: number
@@ -134,5 +134,29 @@ export class CalendarElement extends HTMLElement {
         element.removeEventListener('click')
       }
     }
+  }
+}
+
+function loadScript(src: string) {
+  return new Promise(function(resolve, reject) {
+    const script = document.createElement('script')
+    script.async = true
+    script.src = src
+    script.onload = resolve
+    script.onerror = reject
+    document.head.appendChild(script)
+  })
+}
+
+export function loadUi() {
+  let polyfilled = false
+  if ('customElements' in window) {
+      window.customElements.define('calendar-element', CalendarElement)
+  } else {
+    polyfilled = true
+    loadScript('https://unpkg.com/@webcomponents/webcomponentsjs@1.0.1/webcomponents-sd-ce.js')
+     // there is no way around double loading here for firefox :/
+     // otherwise we'd need to async load for Chrome and Safari too, which gives us a flash of no content
+      .then(e => loadScript('dist/bundle.js'))
   }
 }

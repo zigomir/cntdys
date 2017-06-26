@@ -25,41 +25,14 @@
     <calendar-element year="2017" month="6" day="1"></calendar-element>
     <p class="week">Test leaking out styles</p>
 
-    <!--<script src="dist/bundle.js"></script>-->
-    <script src="dist/bundle.min.js"></script>
-
-    <!--TODO: move this logic into main script?-->
+    <script src="dist/bundle.js"></script>
+    <!--Prod build-->
+    <!--<script src="dist/bundle.min.js"></script>-->
     <script>
-      function loadScript(src) {
-        return new Promise(function(resolve, reject) {
-          const script = document.createElement('script')
-          script.async = true
-          script.src = src
-          script.onload = resolve
-          script.onerror = reject
-          document.head.appendChild(script)
-        })
-      }
-      let polyfilled = false
-      if (!('customElements' in window)) {
-        polyfilled = true
-        loadScript('https://unpkg.com/@webcomponents/webcomponentsjs@1.0.1/webcomponents-sd-ce.js')
-          .then(e => loadScript('dist/bundle.min.js'))
-          .then(e => {
-            const calendar = document.querySelector('calendar-element')
-            calendar.addEventListener('date-selected', (e) => {
-              console.log(e.detail)
-            })
-          })
-      } else {
-        // supported
-        const calendar = document.querySelector('calendar-element')
-        calendar.addEventListener('date-selected', (e) => {
-          console.log(e.detail)
-        })
-      }
-    </script>
-    <script>
+      const calendar = document.querySelector('calendar-element')
+      calendar.addEventListener('date-selected', (e) => {
+        console.log(e.detail)
+      })
       // How to override styling
       // calendar.style.setProperty('--main-color', 'red')
       // calendar.style.setProperty('--selected-color', 'blue')

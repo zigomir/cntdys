@@ -1,9 +1,6 @@
 import { DayEnum, IDay, IMonth, MonthEnum, MonthNumber, Year } from './types'
-import { CalendarElement } from './ui'
-
-if ('customElements' in window) {
-  window.customElements.define('calendar-element', CalendarElement)
-}
+import { loadUi } from './ui'
+loadUi()
 
 export function getDaysInMonth(year: Year, month: MonthNumber): number {
   const daysInMonth = [31, -1, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
