@@ -49,28 +49,28 @@ export class CalendarElement extends HTMLElement {
       </div>
     </div>`
 
-    // TODO: find out how can others style this through JS - CSS variables should enable it, but not sure when in Shadow DOM.
     const style = `<style>
       :host {
         --main-color: #e4e7e7;
         --selected-color: #00a699;
         --other-day-color: #cacccd;
         --cell-size: 37px;
+        --border-width: 1px;
         display: inline-block;
       }
       .weeks {
-        border-left: 1px solid var(--main-color);
-        border-right: 1px solid var(--main-color);
+        border-left: var(--border-width) solid var(--main-color);
+        border-right: var(--border-width) solid var(--main-color);
       }
       .week {
         display: flex;
-        border-bottom: 1px solid var(--main-color);
+        border-bottom: var(--border-width) solid var(--main-color);
       }
       .day {
         width: var(--cell-size);
         height: var(--cell-size);
         text-align: center;
-        border-right: 1px solid var(--main-color);
+        border-right: var(--border-width) solid var(--main-color);
         display: flex;
         align-self: center;
         justify-content: center;
@@ -78,10 +78,10 @@ export class CalendarElement extends HTMLElement {
         user-select: none;
       }
       .day.day-name {
-        border-right: 1px solid transparent;
+        border-right: var(--border-width) solid transparent;
       }
       .day:last-child {
-        border-right: 1px solid transparent;
+        border-right: var(--border-width) solid transparent;
       }
       .day:hover {
         cursor: default;
