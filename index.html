@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
-  <head></head>
+  <head>
+  </head>
   <body>
     <calendar-element year="2017" month="6" day="1"></calendar-element>
     <p class="week">Test leaking out styles</p>
-    <!--<script src="dist/bundle.min.js"></script>-->
+    <!--TODO: find minimal and use conditional loading like so: https://jsbin.com/pebacuroma/edit?html,output -->
+    <!--<script src="https://unpkg.com/@webcomponents/webcomponentsjs@1.0.1/webcomponents-lite.js"></script>-->
     <script src="dist/bundle.js"></script>
+
     <script>
       // Usage
       window.cntdys.main() // run main to get ui
@@ -13,6 +16,10 @@
       calendar.addEventListener('date-selected', (e) => {
         console.log(e.detail)
       })
+      // How to override styling
+      // calendar.style.setProperty('--main-color', 'red')
+      // calendar.style.setProperty('--selected-color', 'blue')
+      // calendar.style.setProperty('--border-width', '2px')
     </script>
   </body>
 </html>
