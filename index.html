@@ -3,16 +3,21 @@
   <head>
   </head>
   <body>
-    <calendar-element year="2017" month="6" day="1"></calendar-element>
+    <calendar-element year="2017" month="6" day="13"></calendar-element>
     <p class="week">Test leaking out styles</p>
 
     <script src="dist/bundle.js"></script>
     <!-- Prod build; need to change inside ui.ts too :S -->
     <!--<script src="dist/bundle.min.js"></script>-->
     <script>
+      const calendar = document.querySelector('calendar-element')
+
+      calendar.addEventListener('date-selected', (e) => {
+        console.log(e.detail)
+      })
+
       // How to override styling
-      const calendar =document.querySelector('calendar-element')
-      calendar.style.setProperty('--other-month-visibility', 'hidden')
+      calendar.style.setProperty('--other-month-visibility', 'hidden') // TODO: make this better
       // calendar.style.setProperty('--main-color', 'red')
       // calendar.style.setProperty('--selected-color', 'blue')
       // calendar.style.setProperty('--border-width', '2px')
