@@ -5,58 +5,14 @@ class CalendarElement extends HTMLElement {
   private year: number
   private month: number
   private day: number
+  private template: HTMLTemplateElement
 
-  private connectedCallback() {
-    const shadowRoot = this.attachShadow({mode: 'open'})
-    this.render = this.render.bind(this)
-    this.render()
-
-    // TODO
-    // if (polyfilled) {
-    //   window.ShadyCSS.applyStyle(this)
-    // }
-  }
-
-  private render() {
-    this.year = Number(this.getAttribute('year'))
-    this.month = Number(this.getAttribute('month'))
-    this.day = Number(this.getAttribute('day'))
-
-    const isCurrentMonth = (day: IDay, month: number) => day.month.month === month
-    const isWeekend = (day: IDay) => day.dayInWeek === 6 || day.dayInWeek === 0
-
-    const calendarDays = calendarMonth(this.year, this.month)
-    const weekendClass = (day: IDay) => isWeekend(day) ? 'weekend' : ''
-    const currentMonthClass = (day: IDay) => isCurrentMonth(day, this.month) ? ' current-month' : ' other-month'
-    const isSelectedClass = (day: IDay) => this.day === day.dayInMonth && this.month === day.month.month && this.year === day.month.year ? 'selected' : ''
-
-    const days = `<div data-action="selectDay" class="weeks">
-      ${calendarDays
-        .map(week => `
-          <div class="week">${week.map(day =>
-            `<span data-day-in-month="${day.dayInMonth}" class="day ${isSelectedClass(day)} ${weekendClass(day)} ${currentMonthClass(day)}">${day.dayInMonth}</span>`)
-            .join('')}
-          </div>`
-        )
-        .join('')}
-    </div>`
-
-    const header = `<div class="header">
-      <span>${this.year} - ${this.month}</span>
-      <div class="week">
-        <span class="day day-name">Mo</span>
-        <span class="day day-name">Tu</span>
-        <span class="day day-name">We</span>
-        <span class="day day-name">Th</span>
-        <span class="day day-name">Fr</span>
-        <span class="day day-name">Sa</span>
-        <span class="day day-name">Su</span>
-      </div>
-    </div>`
-
-    // firefox doesn't support :host & you need to say scoped for styles not to leak out
-    const style = `<style scoped>
-      :host {
+  constructor() {
+    super()
+    this.template = document.createElement('template')
+    this.template.innerHTML = `
+      <style>
+        :host {
         --main-color: #e4e7e7;
         --selected-color: #00a699;
         --other-day-color: #cacccd;
@@ -104,14 +60,61 @@ class CalendarElement extends HTMLElement {
         color: var(--other-day-color);
         pointer-events: none;
       }
-    </style>`
+      </style>
+      <div class="content"></div>
+    `
+    if (window.ShadyCSS) window.ShadyCSS.prepareTemplate(this.template, 'calendar-element')
+  }
+
+  private connectedCallback() {
+    const shadowRoot = this.attachShadow({mode: 'open'})
+    shadowRoot.appendChild(this.template.content.cloneNode(true))
+    this.render = this.render.bind(this)
+    this.render()
+  }
+
+  private render() {
+    this.year = Number(this.getAttribute('year'))
+    this.month = Number(this.getAttribute('month'))
+    this.day = Number(this.getAttribute('day'))
+
+    const isCurrentMonth = (day: IDay, month: number) => day.month.month === month
+    const isWeekend = (day: IDay) => day.dayInWeek === 6 || day.dayInWeek === 0
+
+    const calendarDays = calendarMonth(this.year, this.month)
+    const weekendClass = (day: IDay) => isWeekend(day) ? 'weekend' : ''
+    const currentMonthClass = (day: IDay) => isCurrentMonth(day, this.month) ? ' current-month' : ' other-month'
+    const isSelectedClass = (day: IDay) => this.day === day.dayInMonth && this.month === day.month.month && this.year === day.month.year ? 'selected' : ''
+
+    const days = `<div data-action="selectDay" class="weeks">
+      ${calendarDays
+        .map(week => `
+          <div class="week">${week.map(day =>
+            `<span data-day-in-month="${day.dayInMonth}" class="day ${isSelectedClass(day)} ${weekendClass(day)} ${currentMonthClass(day)}">${day.dayInMonth}</span>`)
+            .join('')}
+          </div>`
+        )
+        .join('')}
+    </div>`
+
+    const header = `<div class="header">
+      <span>${this.year} - ${this.month}</span>
+      <div class="week">
+        <span class="day day-name">Mo</span>
+        <span class="day day-name">Tu</span>
+        <span class="day day-name">We</span>
+        <span class="day day-name">Th</span>
+        <span class="day day-name">Fr</span>
+        <span class="day day-name">Sa</span>
+        <span class="day day-name">Su</span>
+      </div>
+    </div>`
 
     if (this.shadowRoot) {
-      this.shadowRoot.innerHTML = style + header + days
-      // TODO
-      // if (polyfilled) {
-      //   window.ShadyCSS.prepareTemplate(this.shadowRoot, 'calendar-element')
-      // }
+      const content = this.shadowRoot.querySelector('.content')
+      if (content) {
+        content.innerHTML = header + days
+      }
       const element = this.shadowRoot.querySelector('[data-action=selectDay]')
       if (element) {
         element.addEventListener('click', this.onClick.bind(this))
