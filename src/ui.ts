@@ -18,6 +18,7 @@ class CalendarElement extends HTMLElement {
         --other-day-color: #cacccd;
         --cell-size: 37px;
         --border-width: 1px;
+        --other-month-visibility: visible;
         display: inline-block;
       }
       .weeks {
@@ -58,6 +59,7 @@ class CalendarElement extends HTMLElement {
       }
       .day.other-month {
         color: var(--other-day-color);
+        visibility: var(--other-month-visibility);
         pointer-events: none;
       }
       </style>
