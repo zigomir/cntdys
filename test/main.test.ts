@@ -214,7 +214,7 @@ test('calendarMonth has days in right order', () => {
 })
 
 test('calendarMonth fails fast when called with bad values', () => {
-  [undefined, null, false, true, '123', 'abc'].forEach(badValue => {
+  ;[undefined, null, false, true, '123', 'abc'].forEach(badValue => {
     expect(() => calendarMonth(badValue, undefined)).toThrow('Wrong year. Please use number from 1900 to 2100')
     expect(() => calendarMonth(badValue, 1)).toThrow('Wrong year. Please use number from 1900 to 2100')
     expect(() => calendarMonth(2017, badValue)).toThrow('Wrong month. Please use number from 1 to 12')

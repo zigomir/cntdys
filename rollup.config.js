@@ -6,11 +6,13 @@ let dest = 'dist/bundle.js'
 
 if (process.env.BUILD === 'production') {
   dest = 'dist/bundle.min.js'
-  plugins.push(babili({
-    comments: false,
-    banner: false,
-    sourceMap: false
-  }))
+  plugins.push(
+    babili({
+      comments: false,
+      banner: false,
+      sourceMap: false
+    })
+  )
 }
 
 export default {
