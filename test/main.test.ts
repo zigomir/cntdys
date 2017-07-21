@@ -1,4 +1,4 @@
-import { calendarMonth, getDaysInMonth, getNextDay, getNextMonth, getPreviousDay, getPreviousMonth } from '../src/main'
+import { calendarMonth, getDaysInMonth, getNextDay, getNextMonth, getPreviousDay, getPreviousMonth, walk7Days } from '../src/main'
 import { DayEnum, IDay, IMonth, MonthEnum } from '../src/types'
 
 test('get days in month', () => {
@@ -30,6 +30,14 @@ test('getNextMonth', () => {
     month: MonthEnum.February,
     year: 2016
   })
+})
+
+test('week before and after', () => {
+  const juneSeventh = { dayInMonth: 7, dayInWeek: DayEnum.Wednesday, month: { year: 2017, month: MonthEnum.June } }
+  const lastMay = { dayInMonth: 31, dayInWeek: DayEnum.Wednesday, month: { year: 2017, month: MonthEnum.May } }
+
+  expect(walk7Days(juneSeventh, getPreviousDay)).toEqual(lastMay)
+  expect(walk7Days(lastMay, getNextDay)).toEqual(juneSeventh)
 })
 
 test('getPreviousDay', () => {

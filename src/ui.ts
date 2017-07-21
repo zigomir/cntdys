@@ -1,4 +1,4 @@
-import { calendarMonth, getPreviousDay, isLastDayInMonth } from './main'
+import { calendarMonth, getPreviousDay, isLastDayInMonth, walk7Days, getNextDay } from './main'
 import { IDay } from './types'
 
 class CalendarElement extends HTMLElement {
@@ -17,7 +17,7 @@ class CalendarElement extends HTMLElement {
         --selected-color: #00a699;
         --other-day-color: #cacccd;
         --cell-size: 37px;
-        --border-width: .5px;
+        --border-width: 1px;
         --other-month-visibility: visible;
         display: inline-block;
       }
@@ -124,12 +124,16 @@ class CalendarElement extends HTMLElement {
             .map(
               day =>
                 `<div data-day-in-month="${day.dayInMonth}" class="day
+                  ${weekendClass(day)}
+                  ${isSelectedClass(day)}
                   ${currentMonthClass(day)}
                   ${weekNumber === 0 ? 'bt2' : ''}
                   ${day.dayInMonth === 1 ? 'bl2' : ''}
                   ${day.dayInWeek === 1 ? 'bl2' : ''}
                   ${day.dayInWeek === 0 ? 'br2' : ''}
                   ${isLastDayInMonth(day.month.year, day.month.month, day.dayInMonth) ? 'br2' : ''}
+                  ${walk7Days(day, getPreviousDay).month.month !== day.month.month ? 'bt2' : ''}
+                  ${walk7Days(day, getNextDay).month.month !== day.month.month ? 'bb2' : ''}
                   ">
                   ${isCurrentMonth(day, this.month) ? day.dayInMonth : ''}
                 </div>`
