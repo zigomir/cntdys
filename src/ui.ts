@@ -1,4 +1,4 @@
-import { calendarMonth, getDaysInMonth, getPreviousDay } from './main'
+import { calendarMonth, getPreviousDay, isLastDayInMonth } from './main'
 import { IDay } from './types'
 
 class CalendarElement extends HTMLElement {
@@ -29,6 +29,7 @@ class CalendarElement extends HTMLElement {
         height: var(--cell-size);
         text-align: center;
         border: var(--border-width) solid var(--main-color);
+        box-sizing: border-box;
         display: flex;
         align-self: center;
         justify-content: center;
@@ -41,33 +42,6 @@ class CalendarElement extends HTMLElement {
       .day:hover {
         cursor: default;
       }
-      .weeks {
-        border: .5px solid var(--main-color);
-      }
-      /*
-      .weeks .week:first-child .day.current-month {
-        border-top-width: calc(var(--border-width) * 2);
-      }
-      .weeks .week:first-child {
-        border-bottom: .5px solid var(--main-color);
-        margin-bottom: -1px;
-      }
-      .week .day.current-month:first-child {
-        border-left-width: calc(var(--border-width) * 2);
-      }
-      .week .day.current-month:last-child {
-        border-right-width: calc(var(--border-width) * 2);
-      }
-      .week .day.current-month.last-day-in-month {
-        border-right-width: calc(var(--border-width) * 2);
-      }
-      .day[data-day-in-month="1"].current-month {
-        border-left-width: calc(var(--border-width) * 2);
-      }
-      .week .day.current-month.bt {
-        border-top-width: calc(var(--border-width) * 2);
-      }
-      */
       .day.current-month:hover {
         cursor: pointer;
         background-color: var(--main-color);
@@ -77,32 +51,34 @@ class CalendarElement extends HTMLElement {
         color: white;
       }
       .day.other-month {
-        color: var(--other-day-color);
-        /*visibility: var(--other-month-visibility);*/
-        pointer-events: none;
-
-        background-color: white;
-        height: 38px;
-        width: 38px;
-        margin-left: -0.5px;
-        border-left: 0;
-        margin-top: -0.5px;
-        border-top: 0;
-        color: white;
+        visibility: var(--other-month-visibility);
       }
-      .day.clear-below-fill-above {
-        border-top: 0.5px solid var(--main-color);
-        border-bottom: .5px solid white;
-        margin-bottom: -1px;
-        margin-top: 0;
+      .day.bc {
+        border: 0 !important;
       }
-      .day.clear-above {
-        border-top: 0;
+      .day.bb {
+        border-bottom: var(--border-width) solid var(--main-color);
       }
-      .day.fill-left {
-        margin-left: 0;
-        border-left: .5px solid var(--main-color);
-        margin-right: -1px;
+      .day.bb2 {
+        border-bottom: calc(var(--border-width) * 2) solid var(--main-color);
+      }
+      .day.bt {
+        border-top: var(--border-width) solid var(--main-color);
+      }
+      .day.bt2 {
+        border-top: calc(var(--border-width) * 2) solid var(--main-color);
+      }
+      .day.br {
+        border-right: var(--border-width) solid var(--main-color);
+      }
+      .day.br2 {
+        border-right: calc(var(--border-width) * 2) solid var(--main-color);
+      }
+      .day.bl {
+        border-left: var(--border-width) solid var(--main-color);
+      }
+      .day.bl2 {
+        border-left: calc(var(--border-width) * 2) solid var(--main-color);
       }
       </style>
       <div class="content"></div>
@@ -122,8 +98,6 @@ class CalendarElement extends HTMLElement {
     this.month = Number(this.getAttribute('month'))
     this.day = Number(this.getAttribute('day'))
 
-    const previousMonth = this.month - 1 // lol, no
-    const nextMonth = this.month + 1 // lol, no
     const prevWeek = (day: IDay) => {
       let dayCounter = { ...day }
       for (let i = 0; i < 7; i++) {
@@ -137,31 +111,28 @@ class CalendarElement extends HTMLElement {
     const isWeekend = (day: IDay) => day.dayInWeek === 6 || day.dayInWeek === 0
 
     const calendarDays = calendarMonth(this.year, this.month)
-    const weekendClass = (day: IDay) => (isWeekend(day) ? 'weekend' : '')
-    const currentMonthClass = (day: IDay) => (isCurrentMonth(day, this.month) ? 'current-month' : 'other-month')
-
+    const weekendClass = (day: IDay) => isWeekend(day) ? 'weekend' : ''
+    const currentMonthClass = (day: IDay) => isCurrentMonth(day, this.month) ? 'current-month' : 'bc'
     const isSelectedClass = (day: IDay) =>
       this.day === day.dayInMonth && this.month === day.month.month && this.year === day.month.year ? 'selected' : ''
-
-
-    const lastWeekAndOtherMonth = (day: IDay) => isCurrentMonth(day, day.month.month) && day.month.month === nextMonth ?
-      'clear-below-fill-above' : ''
-    const firstDayInNextMonth = (day: IDay) => day.dayInMonth === 1 && day.month.month === nextMonth ?
-      'fill-left' : ''
 
     const days = `<div data-action="selectDay" class="weeks">
       ${calendarDays
         .map(
-          week => `
+          (week, weekNumber) => `
           <div class="week">${week
             .map(
               day =>
                 `<div data-day-in-month="${day.dayInMonth}" class="day
-                  ${isSelectedClass(day)}
-                  ${weekendClass(day)}
-                  ${lastWeekAndOtherMonth(day)}
-                  ${firstDayInNextMonth(day)}
-                  ${currentMonthClass(day)}">${day.dayInMonth}</div>`
+                  ${currentMonthClass(day)}
+                  ${weekNumber === 0 ? 'bt2' : ''}
+                  ${day.dayInMonth === 1 ? 'bl2' : ''}
+                  ${day.dayInWeek === 1 ? 'bl2' : ''}
+                  ${day.dayInWeek === 0 ? 'br2' : ''}
+                  ${isLastDayInMonth(day.month.year, day.month.month, day.dayInMonth) ? 'br2' : ''}
+                  ">
+                  ${isCurrentMonth(day, this.month) ? day.dayInMonth : ''}
+                </div>`
             )
             .join('')}
           </div>`

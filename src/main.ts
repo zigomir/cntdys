@@ -61,8 +61,9 @@ export function getPreviousDay(year: Year, month: MonthNumber, day: number): IDa
   }
 }
 
+export const isLastDayInMonth = (y: Year, m: MonthNumber, d: number) => getDaysInMonth(y, m) === d
+
 export function getNextDay(year: Year, month: MonthNumber, day: number): IDay {
-  const isLastDayInMonth = (y: Year, m: MonthNumber, d: number) => getDaysInMonth(y, m) === d
   if (isLastDayInMonth(year, month, day)) {
     const nextMonth = getNextMonth(year, month)
     const nextDay = new Date(Date.UTC(nextMonth.year, nextMonth.month - 1, 1))
