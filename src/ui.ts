@@ -17,7 +17,7 @@ class CalendarElement extends HTMLElement {
         --selected-color: #00a699;
         --other-day-color: #cacccd;
         --cell-size: 37px;
-        --border-width: 0.05em;
+        --border-width: 0.05em; /* only nice in Chrome :( */
         --other-month-visibility: visible;
         display: inline-block;
       }
@@ -112,7 +112,7 @@ class CalendarElement extends HTMLElement {
 
     const calendarDays = calendarMonth(this.year, this.month)
     const weekendClass = (day: IDay) => isWeekend(day) ? 'weekend' : ''
-    const currentMonthClass = (day: IDay) => isCurrentMonth(day, this.month) ? 'current-month' : 'bc'
+    const currentMonthClass = (day: IDay) => isCurrentMonth(day, this.month) ? 'current-month' : 'bc other-month'
     const isSelectedClass = (day: IDay) =>
       this.day === day.dayInMonth && this.month === day.month.month && this.year === day.month.year ? 'selected' : ''
 
@@ -135,7 +135,7 @@ class CalendarElement extends HTMLElement {
                   ${walk7Days(day, getPreviousDay).month.month !== day.month.month ? 'bt2' : ''}
                   ${walk7Days(day, getNextDay).month.month !== day.month.month ? 'bb2' : ''}
                   ">
-                  ${isCurrentMonth(day, this.month) ? day.dayInMonth : ''}
+                  ${day.dayInMonth}
                 </div>`
             )
             .join('')}
