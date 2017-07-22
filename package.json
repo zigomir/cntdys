@@ -15,7 +15,7 @@
     "lint": "tslint --project tsconfig.json --type-check **/*.ts",
     "test:dev": "jest --watch",
     "test": "npm run lint && jest",
-    "dev": "tsc --watch & rollup --config --watch",
+    "dev": "tsc --watch & rollup --config --watch & serve -p 3000",
     "build": "tsc && rollup --environment BUILD:production --config && rm -r dist/{src,test}",
     "format": "prettier --single-quote --no-semi --print-width 120 --write {**/*.ts,*.js}"
   },
@@ -31,16 +31,17 @@
     ]
   },
   "devDependencies": {
-    "@types/jest": "^19.2.4",
+    "@types/jest": "^20.0.2",
     "jest": "^20.0.4",
-    "prettier": "^1.4.4",
-    "rollup": "^0.42.0",
+    "prettier": "^1.5.3",
+    "rollup": "^0.45.2",
     "rollup-plugin-babili": "^3.1.0",
     "rollup-plugin-multi-entry": "^2.0.1",
-    "rollup-watch": "^4.0.0",
-    "ts-jest": "^20.0.6",
-    "tslint": "^5.4.3",
+    "rollup-watch": "^4.3.1",
+    "serve": "^6.0.2",
+    "ts-jest": "^20.0.7",
+    "tslint": "^5.5.0",
     "tslint-config-prettier": "^1.1.0",
-    "typescript": "^2.3.4"
+    "typescript": "^2.4.2"
   }
 }

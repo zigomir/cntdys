@@ -61,8 +61,9 @@ export function getPreviousDay(year: Year, month: MonthNumber, day: number): IDa
   }
 }
 
+export const isLastDayInMonth = (y: Year, m: MonthNumber, d: number) => getDaysInMonth(y, m) === d
+
 export function getNextDay(year: Year, month: MonthNumber, day: number): IDay {
-  const isLastDayInMonth = (y: Year, m: MonthNumber, d: number) => getDaysInMonth(y, m) === d
   if (isLastDayInMonth(year, month, day)) {
     const nextMonth = getNextMonth(year, month)
     const nextDay = new Date(Date.UTC(nextMonth.year, nextMonth.month - 1, 1))
@@ -81,6 +82,16 @@ export function getNextDay(year: Year, month: MonthNumber, day: number): IDay {
     dayInWeek: nextDay.getUTCDay(),
     month: { month, year }
   }
+}
+
+export function walk7Days(day: IDay, fn: (year: number, month: MonthEnum, day: number) => IDay) {
+  let currentDay = { ...day }
+
+  for (let i = 0; i < 7; i++) {
+    currentDay = fn(currentDay.month.year, currentDay.month.month, currentDay.dayInMonth)
+  }
+
+  return currentDay
 }
 
 export function calendarMonth(year: any, month: any): IDay[][] {

@@ -1,4 +1,4 @@
-import { calendarMonth } from './main'
+import { calendarMonth, getPreviousDay, isLastDayInMonth, walk7Days, getNextDay } from './main'
 import { IDay } from './types'
 
 class CalendarElement extends HTMLElement {
@@ -17,23 +17,19 @@ class CalendarElement extends HTMLElement {
         --selected-color: #00a699;
         --other-day-color: #cacccd;
         --cell-size: 37px;
-        --border-width: 1px;
+        --border-width: 0.05em; /* only nice in Chrome :( */
         --other-month-visibility: visible;
         display: inline-block;
       }
-      .weeks {
-        border-left: var(--border-width) solid var(--main-color);
-        border-right: var(--border-width) solid var(--main-color);
-      }
       .week {
         display: flex;
-        border-bottom: var(--border-width) solid var(--main-color);
       }
       .day {
         width: var(--cell-size);
         height: var(--cell-size);
         text-align: center;
-        border-right: var(--border-width) solid var(--main-color);
+        border: var(--border-width) solid var(--main-color);
+        box-sizing: border-box;
         display: flex;
         align-self: center;
         justify-content: center;
@@ -41,10 +37,7 @@ class CalendarElement extends HTMLElement {
         user-select: none;
       }
       .day.day-name {
-        border-right: var(--border-width) solid transparent;
-      }
-      .day:last-child {
-        border-right: var(--border-width) solid transparent;
+        border: var(--border-width) solid transparent;
       }
       .day:hover {
         cursor: default;
@@ -58,9 +51,34 @@ class CalendarElement extends HTMLElement {
         color: white;
       }
       .day.other-month {
-        color: var(--other-day-color);
         visibility: var(--other-month-visibility);
-        pointer-events: none;
+      }
+      .day.bc {
+        border: 0 !important;
+      }
+      .day.bb {
+        border-bottom: var(--border-width) solid var(--main-color);
+      }
+      .day.bb2 {
+        border-bottom: calc(var(--border-width) * 2) solid var(--main-color);
+      }
+      .day.bt {
+        border-top: var(--border-width) solid var(--main-color);
+      }
+      .day.bt2 {
+        border-top: calc(var(--border-width) * 2) solid var(--main-color);
+      }
+      .day.br {
+        border-right: var(--border-width) solid var(--main-color);
+      }
+      .day.br2 {
+        border-right: calc(var(--border-width) * 2) solid var(--main-color);
+      }
+      .day.bl {
+        border-left: var(--border-width) solid var(--main-color);
+      }
+      .day.bl2 {
+        border-left: calc(var(--border-width) * 2) solid var(--main-color);
       }
       </style>
       <div class="content"></div>
@@ -69,7 +87,7 @@ class CalendarElement extends HTMLElement {
   }
 
   private connectedCallback() {
-    const shadowRoot = this.attachShadow({mode: 'open'})
+    const shadowRoot = this.attachShadow({ mode: 'open' })
     shadowRoot.appendChild(this.template.content.cloneNode(true))
     this.render = this.render.bind(this)
     this.render()
@@ -80,19 +98,51 @@ class CalendarElement extends HTMLElement {
     this.month = Number(this.getAttribute('month'))
     this.day = Number(this.getAttribute('day'))
 
+    const prevWeek = (day: IDay) => {
+      let dayCounter = { ...day }
+      for (let i = 0; i < 7; i++) {
+        dayCounter = getPreviousDay(dayCounter.month.year, dayCounter.month.month, dayCounter.dayInMonth)
+      }
+
+      return dayCounter
+    }
+
     const isCurrentMonth = (day: IDay, month: number) => day.month.month === month
     const isWeekend = (day: IDay) => day.dayInWeek === 6 || day.dayInWeek === 0
 
     const calendarDays = calendarMonth(this.year, this.month)
-    const weekendClass = (day: IDay) => isWeekend(day) ? 'weekend' : ''
-    const currentMonthClass = (day: IDay) => isCurrentMonth(day, this.month) ? ' current-month' : ' other-month'
-    const isSelectedClass = (day: IDay) => this.day === day.dayInMonth && this.month === day.month.month && this.year === day.month.year ? 'selected' : ''
+    const isSelectedClass = (day: IDay) =>
+      this.day === day.dayInMonth && this.month === day.month.month && this.year === day.month.year ? 'selected' : ''
+
+    const computeDayClass = (day: IDay, weekNumber: number) =>
+      [
+        'day',
+        isSelectedClass(day),
+        isCurrentMonth(day, this.month) ? 'current-month' : 'bc other-month',
+        isWeekend(day) ? 'weekend' : '',
+        weekNumber === 0 ? 'bt2' : '',
+        day.dayInMonth === 1 ? 'bl2' : '',
+        day.dayInWeek === 1 ? 'bl2' : '',
+        day.dayInWeek === 0 ? 'br2' : '',
+        isLastDayInMonth(day.month.year, day.month.month, day.dayInMonth) ? 'br2' : '',
+        walk7Days(day, getPreviousDay).month.month !== day.month.month ? 'bt2' : '',
+        walk7Days(day, getNextDay).month.month !== day.month.month ? 'bb2' : ''
+      ]
+        .filter(c => !!c)
+        .join(' ')
 
     const days = `<div data-action="selectDay" class="weeks">
       ${calendarDays
-        .map(week => `
-          <div class="week">${week.map(day =>
-            `<span data-day-in-month="${day.dayInMonth}" class="day ${isSelectedClass(day)} ${weekendClass(day)} ${currentMonthClass(day)}">${day.dayInMonth}</span>`)
+        .map(
+          (week, weekNumber) => `
+          <div class="week">${week
+            .map(
+              day =>
+                `<div data-day-in-month="${day.dayInMonth}" class="${computeDayClass(
+                  day,
+                  weekNumber
+                )}">${day.dayInMonth}</div>`
+            )
             .join('')}
           </div>`
         )
@@ -130,14 +180,16 @@ class CalendarElement extends HTMLElement {
       this.setAttribute('day', newDay || '')
       this.render()
 
-      this.dispatchEvent(new CustomEvent('date-selected', {
-        bubbles: false,
-        detail: {
-          day: Number(newDay),
-          month: this.month,
-          year: this.year
-        }
-      }))
+      this.dispatchEvent(
+        new CustomEvent('date-selected', {
+          bubbles: false,
+          detail: {
+            day: Number(newDay),
+            month: this.month,
+            year: this.year
+          }
+        })
+      )
     }
   }
 
@@ -163,10 +215,10 @@ const loadScript = (src: string) => {
 }
 
 if ('customElements' in window) {
-    window.customElements.define('calendar-element', CalendarElement)
+  window.customElements.define('calendar-element', CalendarElement)
 } else {
   loadScript('https://unpkg.com/@webcomponents/webcomponentsjs@1.0.1/webcomponents-sd-ce.js')
-  // there is no way around double loading here for firefox :/
-  // otherwise we'd need to async load for Chrome and Safari too, which gives us a flash of no content
+    // there is no way around double loading here for firefox :/
+    // otherwise we'd need to async load for Chrome and Safari too, which gives us a flash of no content
     .then(e => loadScript('dist/bundle.js'))
 }
