@@ -17,7 +17,7 @@ class CalendarElement extends HTMLElement {
         --selected-color: #00a699;
         --other-day-color: #cacccd;
         --cell-size: 37px;
-        --border-width: 1px;
+        --border-width: 0.05em;
         --other-month-visibility: visible;
         display: inline-block;
       }
