@@ -85,7 +85,7 @@ export function getNextDay(year: Year, month: MonthNumber, day: number): IDay {
 }
 
 export function walk7Days(day: IDay, fn: (year: number, month: MonthEnum, day: number) => IDay) {
-  let currentDay = {...day}
+  let currentDay = { ...day }
 
   for (let i = 0; i < 7; i++) {
     currentDay = fn(currentDay.month.year, currentDay.month.month, currentDay.dayInMonth)

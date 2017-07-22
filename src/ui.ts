@@ -127,7 +127,9 @@ class CalendarElement extends HTMLElement {
         isLastDayInMonth(day.month.year, day.month.month, day.dayInMonth) ? 'br2' : '',
         walk7Days(day, getPreviousDay).month.month !== day.month.month ? 'bt2' : '',
         walk7Days(day, getNextDay).month.month !== day.month.month ? 'bb2' : ''
-      ].filter(c => !!c).join(' ')
+      ]
+        .filter(c => !!c)
+        .join(' ')
 
     const days = `<div data-action="selectDay" class="weeks">
       ${calendarDays
@@ -136,7 +138,10 @@ class CalendarElement extends HTMLElement {
           <div class="week">${week
             .map(
               day =>
-                `<div data-day-in-month="${day.dayInMonth}" class="${computeDayClass(day, weekNumber)}">${day.dayInMonth}</div>`
+                `<div data-day-in-month="${day.dayInMonth}" class="${computeDayClass(
+                  day,
+                  weekNumber
+                )}">${day.dayInMonth}</div>`
             )
             .join('')}
           </div>`
