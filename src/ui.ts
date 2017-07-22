@@ -111,10 +111,23 @@ class CalendarElement extends HTMLElement {
     const isWeekend = (day: IDay) => day.dayInWeek === 6 || day.dayInWeek === 0
 
     const calendarDays = calendarMonth(this.year, this.month)
-    const weekendClass = (day: IDay) => isWeekend(day) ? 'weekend' : ''
-    const currentMonthClass = (day: IDay) => isCurrentMonth(day, this.month) ? 'current-month' : 'bc other-month'
     const isSelectedClass = (day: IDay) =>
       this.day === day.dayInMonth && this.month === day.month.month && this.year === day.month.year ? 'selected' : ''
+
+    const computeDayClass = (day: IDay, weekNumber: number) =>
+      [
+        'day',
+        isSelectedClass(day),
+        isCurrentMonth(day, this.month) ? 'current-month' : 'bc other-month',
+        isWeekend(day) ? 'weekend' : '',
+        weekNumber === 0 ? 'bt2' : '',
+        day.dayInMonth === 1 ? 'bl2' : '',
+        day.dayInWeek === 1 ? 'bl2' : '',
+        day.dayInWeek === 0 ? 'br2' : '',
+        isLastDayInMonth(day.month.year, day.month.month, day.dayInMonth) ? 'br2' : '',
+        walk7Days(day, getPreviousDay).month.month !== day.month.month ? 'bt2' : '',
+        walk7Days(day, getNextDay).month.month !== day.month.month ? 'bb2' : ''
+      ].filter(c => !!c).join(' ')
 
     const days = `<div data-action="selectDay" class="weeks">
       ${calendarDays
@@ -123,20 +136,7 @@ class CalendarElement extends HTMLElement {
           <div class="week">${week
             .map(
               day =>
-                `<div data-day-in-month="${day.dayInMonth}" class="day
-                  ${weekendClass(day)}
-                  ${isSelectedClass(day)}
-                  ${currentMonthClass(day)}
-                  ${weekNumber === 0 ? 'bt2' : ''}
-                  ${day.dayInMonth === 1 ? 'bl2' : ''}
-                  ${day.dayInWeek === 1 ? 'bl2' : ''}
-                  ${day.dayInWeek === 0 ? 'br2' : ''}
-                  ${isLastDayInMonth(day.month.year, day.month.month, day.dayInMonth) ? 'br2' : ''}
-                  ${walk7Days(day, getPreviousDay).month.month !== day.month.month ? 'bt2' : ''}
-                  ${walk7Days(day, getNextDay).month.month !== day.month.month ? 'bb2' : ''}
-                  ">
-                  ${day.dayInMonth}
-                </div>`
+                `<div data-day-in-month="${day.dayInMonth}" class="${computeDayClass(day, weekNumber)}">${day.dayInMonth}</div>`
             )
             .join('')}
           </div>`
