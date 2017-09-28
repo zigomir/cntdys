@@ -6,9 +6,7 @@
     <calendar-element year="2017" month="6" day="13"></calendar-element>
     <p class="week">Test leaking out styles</p>
 
-    <script src="dist/bundle.js"></script>
-    <!-- Prod build; need to change inside ui.ts too :S -->
-    <!--<script src="dist/bundle.min.js"></script>-->
+    <script type="module" src="src/ui.js"></script>
     <script>
       const calendar = document.querySelector('calendar-element')
 

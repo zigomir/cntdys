@@ -1,4 +1,4 @@
-import { calendarMonth } from './main'
+import { calendarMonth } from './main.js' // needs .js extension to be used as js module
 import { IDay } from './types'
 
 class CalendarElement extends HTMLElement {
@@ -65,7 +65,9 @@ class CalendarElement extends HTMLElement {
       </style>
       <div class="content"></div>
     `
-    if (window.ShadyCSS) window.ShadyCSS.prepareTemplate(this.template, 'calendar-element')
+    if (window.ShadyCSS) {
+      window.ShadyCSS.prepareTemplate(this.template, 'calendar-element')
+    }
   }
 
   private connectedCallback() {

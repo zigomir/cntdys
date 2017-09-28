@@ -43,11 +43,11 @@ export function getPreviousDay(year: Year, month: MonthNumber, day: number): IDa
   if (day === 1) {
     const prevMonth = getPreviousMonth(year, month)
     const lastDayInPrevMonth = getDaysInMonth(prevMonth.year, prevMonth.month)
-    const previousDay = new Date(Date.UTC(prevMonth.year, prevMonth.month - 1, lastDayInPrevMonth))
+    const previousDayFromPreviousMonth = new Date(Date.UTC(prevMonth.year, prevMonth.month - 1, lastDayInPrevMonth))
 
     return {
-      dayInMonth: previousDay.getUTCDate(),
-      dayInWeek: previousDay.getUTCDay(),
+      dayInMonth: previousDayFromPreviousMonth.getUTCDate(),
+      dayInWeek: previousDayFromPreviousMonth.getUTCDay(),
       month: prevMonth
     }
   }
@@ -65,11 +65,11 @@ export function getNextDay(year: Year, month: MonthNumber, day: number): IDay {
   const isLastDayInMonth = (y: Year, m: MonthNumber, d: number) => getDaysInMonth(y, m) === d
   if (isLastDayInMonth(year, month, day)) {
     const nextMonth = getNextMonth(year, month)
-    const nextDay = new Date(Date.UTC(nextMonth.year, nextMonth.month - 1, 1))
+    const nextDayOfNextMonth = new Date(Date.UTC(nextMonth.year, nextMonth.month - 1, 1))
 
     return {
-      dayInMonth: nextDay.getUTCDate(),
-      dayInWeek: nextDay.getUTCDay(),
+      dayInMonth: nextDayOfNextMonth.getUTCDate(),
+      dayInWeek: nextDayOfNextMonth.getUTCDay(),
       month: nextMonth
     }
   }

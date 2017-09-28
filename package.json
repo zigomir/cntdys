@@ -9,14 +9,13 @@
   ],
   "author": "Ziga Vidic <zigomir@gmail.com> (https://zigomir.com/)",
   "license": "MIT",
-  "main": "dist/bundle.min.js",
+  "main": "src/main.js",
   "module": "dist/main.js",
   "scripts": {
     "lint": "tslint --project tsconfig.json --type-check **/*.ts",
     "test:dev": "jest --watch",
     "test": "npm run lint && jest",
-    "dev": "tsc --watch & rollup --config --watch",
-    "build": "tsc && rollup --environment BUILD:production --config && rm -r dist/{src,test}",
+    "dev": "tsc --watch",
     "format": "prettier --single-quote --no-semi --print-width 120 --write {**/*.ts,*.js}"
   },
   "jest": {
@@ -31,16 +30,12 @@
     ]
   },
   "devDependencies": {
-    "@types/jest": "^19.2.4",
-    "jest": "^20.0.4",
-    "prettier": "^1.4.4",
-    "rollup": "^0.42.0",
-    "rollup-plugin-babili": "^3.1.0",
-    "rollup-plugin-multi-entry": "^2.0.1",
-    "rollup-watch": "^4.0.0",
-    "ts-jest": "^20.0.6",
-    "tslint": "^5.4.3",
-    "tslint-config-prettier": "^1.1.0",
-    "typescript": "^2.3.4"
+    "@types/jest": "^21.2.1",
+    "jest": "^21.2.1",
+    "prettier": "^1.7.2",
+    "ts-jest": "^21.0.1",
+    "tslint": "^5.7.0",
+    "tslint-config-prettier": "^1.5.0",
+    "typescript": "^2.5.3"
   }
 }
