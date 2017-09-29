@@ -12,7 +12,7 @@ i am not satisfied with moment.js + jquery combo to have a simple date picker
 - separate logic from data
 - render with:
   - svelte (no runtime)
-  - custom elements
+    - custom elements
 
 ## inspiration(s)
 
@@ -21,6 +21,4 @@ i am not satisfied with moment.js + jquery combo to have a simple date picker
 
 ## todos
 
-- export as es module?
-- optimize: don't throw everything and re-create all
-- prepare demo using in vue and preact
+- prepare demo using in vue, preact and svelte [separate project]

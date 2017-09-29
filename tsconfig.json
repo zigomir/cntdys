@@ -1,13 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es2015",
-    "module": "es2015",
-    "outDir": "./dist",
+    "target": "esnext",
+    "module": "esnext",
+    "outDir": "dist",
     "strict": true,
-    "lib": ["es2015", "es2017", "dom"]
-  },
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noFallthroughCasesInSwitch": true
+  }
 }

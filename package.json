@@ -3,21 +3,18 @@
   "version": "0.1.0",
   "description": "more calendar for less bytes",
   "keywords": [
-    "calendar",
-    "date picker",
-    "date range selector"
+    "calendar"
   ],
   "author": "Ziga Vidic <zigomir@gmail.com> (https://zigomir.com/)",
   "license": "MIT",
-  "main": "dist/bundle.min.js",
+  "main": "dist/main.js",
   "module": "dist/main.js",
   "scripts": {
     "lint": "tslint --project tsconfig.json --type-check **/*.ts",
     "test:dev": "jest --watch",
-    "test": "npm run lint && jest",
-    "dev": "tsc --watch & rollup --config --watch",
-    "build": "tsc && rollup --environment BUILD:production --config && rm -r dist/{src,test}",
-    "format": "prettier --single-quote --no-semi --print-width 120 --write {**/*.ts,*.js}"
+    "test": "npm run lint && jest --coverage --mapCoverage",
+    "dev": "tsc --watch",
+    "build": "tsc && minify dist/main.js --out-file dist/main.min.js && cp dist/src/main.js dist/main.js && rm -rf dist/src && rm -rf dist/test"
   },
   "jest": {
     "testEnvironment": "node",
@@ -31,16 +28,12 @@
     ]
   },
   "devDependencies": {
-    "@types/jest": "^19.2.4",
-    "jest": "^20.0.4",
-    "prettier": "^1.4.4",
-    "rollup": "^0.42.0",
-    "rollup-plugin-babili": "^3.1.0",
-    "rollup-plugin-multi-entry": "^2.0.1",
-    "rollup-watch": "^4.0.0",
-    "ts-jest": "^20.0.6",
-    "tslint": "^5.4.3",
-    "tslint-config-prettier": "^1.1.0",
-    "typescript": "^2.3.4"
+    "@types/jest": "^21.0.0",
+    "babel-minify": "^0.2.0",
+    "jest": "^21.2.1",
+    "ts-jest": "^21.0.1",
+    "tslint": "^5.7.0",
+    "tslint-config-standard": "^6.0.1",
+    "typescript": "^2.5.3"
   }
 }

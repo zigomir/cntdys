@@ -1,6 +1,6 @@
 import { DayEnum, IDay, IMonth, MonthEnum, MonthNumber, Year } from './types'
 
-export function getDaysInMonth(year: Year, month: MonthNumber): number {
+export function getDaysInMonth (year: Year, month: MonthNumber): number {
   const daysInMonth = [31, -1, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
   // naive leap year implementation
@@ -11,7 +11,7 @@ export function getDaysInMonth(year: Year, month: MonthNumber): number {
   return daysInMonth[month - 1]
 }
 
-export function getPreviousMonth(year: Year, month: MonthNumber): IMonth {
+export function getPreviousMonth (year: Year, month: MonthNumber): IMonth {
   if (month === MonthEnum.January) {
     return {
       month: MonthEnum.December,
@@ -25,7 +25,7 @@ export function getPreviousMonth(year: Year, month: MonthNumber): IMonth {
   }
 }
 
-export function getNextMonth(year: Year, month: MonthNumber): IMonth {
+export function getNextMonth (year: Year, month: MonthNumber): IMonth {
   if (month === MonthEnum.December) {
     return {
       month: 1,
@@ -39,15 +39,15 @@ export function getNextMonth(year: Year, month: MonthNumber): IMonth {
   }
 }
 
-export function getPreviousDay(year: Year, month: MonthNumber, day: number): IDay {
+export function getPreviousDay (year: Year, month: MonthNumber, day: number): IDay {
   if (day === 1) {
     const prevMonth = getPreviousMonth(year, month)
     const lastDayInPrevMonth = getDaysInMonth(prevMonth.year, prevMonth.month)
-    const previousDay = new Date(Date.UTC(prevMonth.year, prevMonth.month - 1, lastDayInPrevMonth))
+    const previousDayFromPreviousMonth = new Date(Date.UTC(prevMonth.year, prevMonth.month - 1, lastDayInPrevMonth))
 
     return {
-      dayInMonth: previousDay.getUTCDate(),
-      dayInWeek: previousDay.getUTCDay(),
+      dayInMonth: previousDayFromPreviousMonth.getUTCDate(),
+      dayInWeek: previousDayFromPreviousMonth.getUTCDay(),
       month: prevMonth
     }
   }
@@ -61,15 +61,15 @@ export function getPreviousDay(year: Year, month: MonthNumber, day: number): IDa
   }
 }
 
-export function getNextDay(year: Year, month: MonthNumber, day: number): IDay {
+export function getNextDay (year: Year, month: MonthNumber, day: number): IDay {
   const isLastDayInMonth = (y: Year, m: MonthNumber, d: number) => getDaysInMonth(y, m) === d
   if (isLastDayInMonth(year, month, day)) {
     const nextMonth = getNextMonth(year, month)
-    const nextDay = new Date(Date.UTC(nextMonth.year, nextMonth.month - 1, 1))
+    const nextDayOfNextMonth = new Date(Date.UTC(nextMonth.year, nextMonth.month - 1, 1))
 
     return {
-      dayInMonth: nextDay.getUTCDate(),
-      dayInWeek: nextDay.getUTCDay(),
+      dayInMonth: nextDayOfNextMonth.getUTCDate(),
+      dayInWeek: nextDayOfNextMonth.getUTCDay(),
       month: nextMonth
     }
   }
@@ -83,7 +83,7 @@ export function getNextDay(year: Year, month: MonthNumber, day: number): IDay {
   }
 }
 
-export function calendarMonth(year: any, month: any): IDay[][] {
+export function calendarMonth (year: any, month: any): IDay[][] {
   if (!year || isNaN(parseInt(year, 10)) || parseInt(year, 10) < 1900 || parseInt(year, 10) > 2100) {
     throw Error('Wrong year. Please use number from 1900 to 2100')
   }
