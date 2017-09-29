@@ -7,14 +7,14 @@
   ],
   "author": "Ziga Vidic <zigomir@gmail.com> (https://zigomir.com/)",
   "license": "MIT",
-  "main": "src/main.js",
-  "module": "dist/cntdys.min.js",
+  "main": "dist/main.js",
+  "module": "dist/main.js",
   "scripts": {
     "lint": "tslint --project tsconfig.json --type-check **/*.ts",
     "test:dev": "jest --watch",
     "test": "npm run lint && jest",
     "dev": "tsc --watch",
-    "build": "tsc && minify src/main.js --out-file dist/cntdys.min.js"
+    "build": "tsc && minify dist/main.js --out-file dist/main.min.js && cp dist/src/main.js dist/main.js && rm -rf dist/src && rm -rf dist/test"
   },
   "jest": {
     "testEnvironment": "node",
