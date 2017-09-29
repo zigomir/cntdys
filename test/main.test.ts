@@ -1,5 +1,5 @@
 import { calendarMonth, getDaysInMonth, getNextDay, getNextMonth, getPreviousDay, getPreviousMonth } from '../src/main'
-import { DayEnum, IDay, IMonth, MonthEnum } from '../src/types'
+import { DayEnum, IMonth, MonthEnum } from '../src/types'
 
 test('get days in month', () => {
   expect(getDaysInMonth(2016, 2)).toBe(29)
@@ -214,7 +214,7 @@ test('calendarMonth has days in right order', () => {
 })
 
 test('calendarMonth fails fast when called with bad values', () => {
-  [undefined, null, false, true, '123', 'abc'].forEach(badValue => {
+  [undefined, null, false, true, '123', 'abc'].forEach((badValue) => {
     expect(() => calendarMonth(badValue, undefined)).toThrow('Wrong year. Please use number from 1900 to 2100')
     expect(() => calendarMonth(badValue, 1)).toThrow('Wrong year. Please use number from 1900 to 2100')
     expect(() => calendarMonth(2017, badValue)).toThrow('Wrong month. Please use number from 1 to 12')
