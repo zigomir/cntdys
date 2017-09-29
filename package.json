@@ -12,7 +12,7 @@
   "scripts": {
     "lint": "tslint --project tsconfig.json --type-check **/*.ts",
     "test:dev": "jest --watch",
-    "test": "npm run lint && jest",
+    "test": "npm run lint && jest --coverage --mapCoverage",
     "dev": "tsc --watch",
     "build": "tsc && minify dist/main.js --out-file dist/main.min.js && cp dist/src/main.js dist/main.js && rm -rf dist/src && rm -rf dist/test"
   },
