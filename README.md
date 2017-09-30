@@ -6,19 +6,25 @@
 
 i am not satisfied with moment.js + jquery combo to have a simple date picker
 
-## goal(s)
+## goals
 
 - separate calendar logic from ui
-- separate logic from data
-- render with:
-  - svelte (no runtime)
-    - custom elements
+- minimal size
+- modern – use ES modules for delivery
+- simple to use
 
-## inspiration(s)
+## inspirations
 
 - macOS calendar
 - AirBnb DateRangePicker
 
-## todos
+## usage
 
-- prepare demo using in vue, preact and svelte [separate project]
+See test/index.html file
+
+```html
+<script type="module">
+  import { calendarMonth } from 'https://unpkg/cntdys@latest/dist/main.min.js'
+  console.log('calendarMonth', calendarMonth(2017, 9))
+</script>
+```
