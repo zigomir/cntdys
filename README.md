@@ -24,7 +24,9 @@ See test/index.html file
 
 ```html
 <script type="module">
-  import { calendarMonth } from 'https://unpkg/cntdys@latest/dist/main.min.js'
+  import { calendarMonth } from 'https://unpkg.com/cntdys@latest/dist/main.min.js' // minified or https://unpkg.com/cntdys for non-minified build
   console.log('calendarMonth', calendarMonth(2017, 9))
 </script>
 ```
+
+or with `npm install cntdys`.
