@@ -83,12 +83,15 @@ export function getNextDay (year: Year, month: MonthNumber, day: number): IDay {
   }
 }
 
-export function calendarMonth (year: any, month: any): IDay[][] {
+export function calendarMonth (year: any, month: any, startOfTheWeek: any = DayEnum.Monday): IDay[][] {
   if (!year || isNaN(parseInt(year, 10)) || parseInt(year, 10) < 1900 || parseInt(year, 10) > 2100) {
     throw Error('Wrong year. Please use number from 1900 to 2100')
   }
   if (!month || isNaN(parseInt(month, 10)) || parseInt(month, 10) < 1 || parseInt(month, 10) > 12) {
     throw Error('Wrong month. Please use number from 1 to 12')
+  }
+  if ((!startOfTheWeek && startOfTheWeek !== 0) || isNaN(parseInt(startOfTheWeek, 10)) || parseInt(startOfTheWeek, 10) < 0 || parseInt(startOfTheWeek, 10) > 6) {
+    throw Error(startOfTheWeek + ' Wrong start of the week. Please use number from 0 (for Sunday) to 6 (for Saturday)')
   }
 
   const firstDayInMonth = new Date(Date.UTC(year, month - 1, 1))
@@ -98,11 +101,11 @@ export function calendarMonth (year: any, month: any): IDay[][] {
     month: { month, year }
   }
 
-  // go back to first monday
-  if (startingDay.dayInWeek !== DayEnum.Monday) {
+  // go back to first start of the week (Monday or Sunday, or any other really)
+  if (startingDay.dayInWeek !== startOfTheWeek) {
     let previousDay = getPreviousDay(startingDay.month.year, startingDay.month.month, startingDay.dayInMonth)
 
-    while (previousDay.dayInWeek !== DayEnum.Monday) {
+    while (previousDay.dayInWeek !== startOfTheWeek) {
       previousDay = getPreviousDay(previousDay.month.year, previousDay.month.month, previousDay.dayInMonth)
     }
 
