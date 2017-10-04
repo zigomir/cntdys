@@ -225,12 +225,15 @@ describe('bad values', () => {
       expect(() => calendarMonth(2017, badValue)).toThrow('Wrong month. Please use number from 1 to 12')
       // because default parameter will kick in
       if (badValue !== undefined) {
-        expect(() => calendarMonth(2017, 12, badValue)).toThrow('Wrong start of the week. Please use number from 0 (for Sunday) to 6 (for Saturday)')
+        expect(() => calendarMonth(2017, 12, badValue))
+          .toThrow('Wrong start of the week. Please use number from 0 (for Sunday) to 6 (for Saturday)')
       }
     })
 
     expect(() => calendarMonth(2017, 12)).not.toThrow()
     expect(() => calendarMonth('2017', '12')).not.toThrow()
+    expect(() => calendarMonth(2017, 12, 1)).not.toThrow()
+    expect(() => calendarMonth(2017, 12, '1')).not.toThrow()
   })
 })
 

@@ -84,14 +84,18 @@ export function getNextDay (year: Year, month: MonthNumber, day: number): IDay {
 }
 
 export function calendarMonth (year: any, month: any, startOfTheWeek: any = DayEnum.Monday): IDay[][] {
-  if (!year || isNaN(parseInt(year, 10)) || parseInt(year, 10) < 1900 || parseInt(year, 10) > 2100) {
+  year = parseInt(year, 10)
+  month = parseInt(month, 10)
+  startOfTheWeek = parseInt(startOfTheWeek, 10)
+
+  if (!year || isNaN(year) || year < 1900 || year > 2100) {
     throw Error('Wrong year. Please use number from 1900 to 2100')
   }
-  if (!month || isNaN(parseInt(month, 10)) || parseInt(month, 10) < 1 || parseInt(month, 10) > 12) {
+  if (!month || isNaN(month) || month < 1 || month > 12) {
     throw Error('Wrong month. Please use number from 1 to 12')
   }
-  if ((!startOfTheWeek && startOfTheWeek !== 0) || isNaN(parseInt(startOfTheWeek, 10)) || parseInt(startOfTheWeek, 10) < 0 || parseInt(startOfTheWeek, 10) > 6) {
-    throw Error(startOfTheWeek + ' Wrong start of the week. Please use number from 0 (for Sunday) to 6 (for Saturday)')
+  if ((!startOfTheWeek && startOfTheWeek !== 0) || isNaN(startOfTheWeek) || startOfTheWeek < 0 || startOfTheWeek > 6) {
+    throw Error('Wrong start of the week. Please use number from 0 (for Sunday) to 6 (for Saturday)')
   }
 
   const firstDayInMonth = new Date(Date.UTC(year, month - 1, 1))
