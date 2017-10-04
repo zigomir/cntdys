@@ -83,12 +83,28 @@ export function getNextDay (year: Year, month: MonthNumber, day: number): IDay {
   }
 }
 
-export function calendarMonth (year: any, month: any): IDay[][] {
-  if (!year || isNaN(parseInt(year, 10)) || parseInt(year, 10) < 1900 || parseInt(year, 10) > 2100) {
+/**
+ * Get calendar for given month.
+ *
+ * @param {number} year - year [1900 – 2100]
+ * @param {number} month - Month [1  - 12]
+ * @param {number} [startOfTheWeek=1] - Start of the week [0 – 6] where 0 is Sunday, and 6 is Saturday
+ *
+ * @returns {Object[][]}
+ */
+export function calendarMonth (year: any, month: any, startOfTheWeek: any = DayEnum.Monday): IDay[][] {
+  year = parseInt(year, 10)
+  month = parseInt(month, 10)
+  startOfTheWeek = parseInt(startOfTheWeek, 10)
+
+  if (!year || isNaN(year) || year < 1900 || year > 2100) {
     throw Error('Wrong year. Please use number from 1900 to 2100')
   }
-  if (!month || isNaN(parseInt(month, 10)) || parseInt(month, 10) < 1 || parseInt(month, 10) > 12) {
+  if (!month || isNaN(month) || month < 1 || month > 12) {
     throw Error('Wrong month. Please use number from 1 to 12')
+  }
+  if ((!startOfTheWeek && startOfTheWeek !== 0) || isNaN(startOfTheWeek) || startOfTheWeek < 0 || startOfTheWeek > 6) {
+    throw Error('Wrong start of the week. Please use number from 0 (for Sunday) to 6 (for Saturday)')
   }
 
   const firstDayInMonth = new Date(Date.UTC(year, month - 1, 1))
@@ -98,11 +114,11 @@ export function calendarMonth (year: any, month: any): IDay[][] {
     month: { month, year }
   }
 
-  // go back to first monday
-  if (startingDay.dayInWeek !== DayEnum.Monday) {
+  // go back to first start of the week (Monday or Sunday, or any other really)
+  if (startingDay.dayInWeek !== startOfTheWeek) {
     let previousDay = getPreviousDay(startingDay.month.year, startingDay.month.month, startingDay.dayInMonth)
 
-    while (previousDay.dayInWeek !== DayEnum.Monday) {
+    while (previousDay.dayInWeek !== startOfTheWeek) {
       previousDay = getPreviousDay(previousDay.month.year, previousDay.month.month, previousDay.dayInMonth)
     }
 

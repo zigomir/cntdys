@@ -1,6 +1,6 @@
 {
   "name": "cntdys",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "more calendar for less bytes",
   "keywords": [
     "calendar"
@@ -15,7 +15,7 @@
     "test": "npm run lint && jest --coverage --mapCoverage",
     "dev": "tsc --watch",
     "build": "tsc && minify dist/main.js --out-file dist/main.min.js && cp dist/src/main.js dist/main.js && rm -rf dist/src && rm -rf dist/test",
-    "prepare": "npm run test && npm run build"
+    "prepublishOnly": "npm run test && npm run build"
   },
   "jest": {
     "testEnvironment": "node",
@@ -29,7 +29,7 @@
     ]
   },
   "devDependencies": {
-    "@types/jest": "^21.0.0",
+    "@types/jest": "^21.1.2",
     "babel-minify": "^0.2.0",
     "jest": "^21.2.1",
     "ts-jest": "^21.0.1",
