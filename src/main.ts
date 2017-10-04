@@ -83,6 +83,15 @@ export function getNextDay (year: Year, month: MonthNumber, day: number): IDay {
   }
 }
 
+/**
+ * Get calendar for given month.
+ *
+ * @param {number} year - year [1900 – 2100]
+ * @param {number} month - Month [1  - 12]
+ * @param {number} [startOfTheWeek=1] - Start of the week [0 – 6] where 0 is Sunday, and 6 is Saturday
+ *
+ * @returns {Object[][]}
+ */
 export function calendarMonth (year: any, month: any, startOfTheWeek: any = DayEnum.Monday): IDay[][] {
   year = parseInt(year, 10)
   month = parseInt(month, 10)
