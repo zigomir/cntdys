@@ -14,6 +14,7 @@
     "test:dev": "jest --watch",
     "test": "npm run lint && jest --coverage --mapCoverage",
     "dev": "tsc --watch",
+    "size": "gzip-size dist/main.min.js",
     "build": "tsc && minify dist/main.js --out-file dist/main.min.js && cp dist/src/main.js dist/main.js && rm -rf dist/src && rm -rf dist/test",
     "prepublishOnly": "npm run test && npm run build"
   },
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@types/jest": "^21.1.2",
     "babel-minify": "^0.2.0",
+    "gzip-size-cli": "^2.1.0",
     "jest": "^21.2.1",
     "ts-jest": "^21.0.1",
     "tslint": "^5.7.0",
