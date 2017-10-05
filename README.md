@@ -28,7 +28,7 @@ See test/index.html file
   console.log('calendarMonth', calendarMonth(2017, 9))
 
   // or with different start of the week
-  console.log('calendarMonth', calendarMonth(2017, 9, 0)) // start week on Sunday - TODO: change default?
+  console.log('calendarMonth', calendarMonth(2017, 9, 1)) // start week on Monday (0 = Sunday)
 </script>
 ```
 
