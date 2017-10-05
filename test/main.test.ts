@@ -124,7 +124,7 @@ describe('calendarMonth', () => {
     const month: IMonth = { month: 3, year: 2016 }
     const prevMonth = getPreviousMonth(month.year, month.month)
     const nextMonth = getNextMonth(month.year, month.month)
-    const calendar = calendarMonth(month.year, month.month)
+    const calendar = calendarMonth(month.year, month.month, DayEnum.Monday)
     const numberOfWeeks = calendar.length
 
     expect(numberOfWeeks).toBe(6)
@@ -168,7 +168,7 @@ describe('calendarMonth', () => {
     const month: IMonth = { month: 6, year: 2017 }
     const prevMonth = getPreviousMonth(month.year, month.month)
     const nextMonth = getNextMonth(month.year, month.month)
-    const calendar = calendarMonth(month.year, month.month)
+    const calendar = calendarMonth(month.year, month.month, DayEnum.Monday)
 
     expect(calendar[0][0]).toEqual({
       dayInMonth: 29,
@@ -203,7 +203,7 @@ describe('calendarMonth', () => {
   })
 
   test('calendarMonth has days in right order', () => {
-    const calendar = calendarMonth(2017, 6)
+    const calendar = calendarMonth(2017, 6, DayEnum.Monday)
     /* tslint:disable:prefer-for-of */
     for (let i = 0; i < calendar.length; i++) {
       expect(calendar[i].length).toBe(7)
@@ -241,7 +241,7 @@ describe('starting week on a different day', () => {
   test('oct 2017', () => {
     const month: IMonth = { month: 10, year: 2017 }
     const nextMonth = getNextMonth(month.year, month.month)
-    const calendar = calendarMonth(month.year, month.month, DayEnum.Sunday)
+    const calendar = calendarMonth(month.year, month.month)
 
     expect(calendar[0][0]).toEqual({
       dayInMonth: 1,
