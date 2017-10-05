@@ -1,10 +1,10 @@
 # count them days
 
-> 2kb calendar
+> 654 B calendar (no UI)
 
 ## why
 
-i am not satisfied with moment.js + jquery combo to have a simple date picker
+do not be satisfied with `moment.js` + `jquery` combo to have a simple date picker
 
 ## goals
 
@@ -12,11 +12,6 @@ i am not satisfied with moment.js + jquery combo to have a simple date picker
 - minimal size
 - modern – use ES modules for delivery
 - simple to use
-
-## inspirations
-
-- macOS calendar
-- AirBnb DateRangePicker
 
 ## usage
 
@@ -33,3 +28,7 @@ See test/index.html file
 ```
 
 or with `npm install cntdys`.
+
+## where is UI?
+
+soon
