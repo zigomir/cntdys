@@ -1,6 +1,6 @@
 {
   "name": "cntdys",
-  "version": "0.2.2",
+  "version": "0.2.4",
   "description": "more calendar for less bytes",
   "keywords": [
     "calendar"
@@ -10,6 +10,9 @@
   "main": "dist/main.js",
   "module": "dist/main.js",
   "types": "dist/types/src/main.d.ts",
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "lint": "tslint --project tsconfig.json --type-check **/*.ts",
     "test:dev": "jest --watch",
