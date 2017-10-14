@@ -1,4 +1,5 @@
 import { DayEnum, IDay, IMonth, MonthEnum, MonthNumber, Year } from './types'
+export { DayEnum, IDay, IMonth, MonthEnum, MonthNumber, Year }
 
 export function getDaysInMonth (year: Year, month: MonthNumber): number {
   const daysInMonth = [31, -1, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
