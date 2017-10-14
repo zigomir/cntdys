@@ -1,6 +1,6 @@
 {
   "name": "cntdys",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "more calendar for less bytes",
   "keywords": [
     "calendar"
@@ -9,6 +9,7 @@
   "license": "MIT",
   "main": "dist/main.js",
   "module": "dist/main.js",
+  "types": "dist/types/src/main.d.ts",
   "scripts": {
     "lint": "tslint --project tsconfig.json --type-check **/*.ts",
     "test:dev": "jest --watch",
@@ -34,7 +35,7 @@
     "babel-minify": "^0.2.0",
     "gzip-size-cli": "^2.1.0",
     "jest": "^21.2.1",
-    "ts-jest": "^21.0.1",
+    "ts-jest": "^21.1.2",
     "tslint": "^5.7.0",
     "tslint-config-standard": "^6.0.1",
     "typescript": "^2.5.3"
