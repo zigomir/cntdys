@@ -14,7 +14,7 @@
     "dist/"
   ],
   "scripts": {
-    "lint": "tslint --project tsconfig.json --type-check **/*.ts",
+    "lint": "tslint --project tsconfig.json **/*.ts",
     "test:dev": "jest --watch",
     "test": "npm run lint && jest --coverage --mapCoverage",
     "dev": "tsc --watch",
@@ -34,13 +34,13 @@
     ]
   },
   "devDependencies": {
-    "@types/jest": "^21.1.2",
+    "@types/jest": "^21.1.5",
     "babel-minify": "^0.2.0",
     "gzip-size-cli": "^2.1.0",
     "jest": "^21.2.1",
-    "ts-jest": "^21.1.2",
-    "tslint": "^5.7.0",
-    "tslint-config-standard": "^6.0.1",
-    "typescript": "^2.5.3"
+    "ts-jest": "^21.1.4",
+    "tslint": "^5.8.0",
+    "tslint-config-standard": "^7.0.0",
+    "typescript": "^2.6.1"
   }
 }
