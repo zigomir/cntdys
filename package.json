@@ -13,10 +13,16 @@
   "files": [
     "dist/"
   ],
+  "bundlesize": [
+    {
+      "path": "./dist/main.min.js",
+      "maxSize": "666 B"
+    }
+  ],
   "scripts": {
     "lint": "tslint --project tsconfig.json **/*.ts",
     "test:dev": "jest --watch",
-    "test": "npm run lint && jest --coverage --mapCoverage",
+    "test": "npm run lint && jest --coverage --mapCoverage && bundlesize",
     "dev": "tsc --watch",
     "size": "gzip-size dist/main.min.js",
     "build": "tsc && minify dist/main.js --out-file dist/main.min.js && cp dist/src/main.js dist/main.js && rm -rf dist/src && rm -rf dist/test",
@@ -36,6 +42,7 @@
   "devDependencies": {
     "@types/jest": "^21.1.5",
     "babel-minify": "^0.2.0",
+    "bundlesize": "^0.15.3",
     "gzip-size-cli": "^2.1.0",
     "jest": "^21.2.1",
     "ts-jest": "^21.1.4",
