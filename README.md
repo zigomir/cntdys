@@ -1,4 +1,4 @@
-# count them days
+# count'em days
 
 > 654 B calendar (no UI)
 
@@ -31,4 +31,4 @@ or with `npm install cntdys`.
 
 ## where is UI?
 
-soon
+WIP -> soon
