@@ -1,6 +1,6 @@
 # count'em days
 
-> 654 B calendar (no UI)
+> 646 B calendar (no UI)
 
 ## goals
 

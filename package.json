@@ -1,6 +1,6 @@
 {
   "name": "cntdys",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "more calendar for less bytes",
   "keywords": [
     "calendar"
@@ -40,14 +40,14 @@
     ]
   },
   "devDependencies": {
-    "@types/jest": "^21.1.5",
+    "@types/jest": "^22.1.0",
     "babel-minify": "^0.2.0",
     "bundlesize": "^0.15.3",
     "gzip-size-cli": "^2.1.0",
-    "jest": "^21.2.1",
-    "ts-jest": "^21.1.4",
-    "tslint": "^5.8.0",
+    "jest": "^22.1.4",
+    "ts-jest": "^22.0.1",
+    "tslint": "^5.9.1",
     "tslint-config-standard": "^7.0.0",
-    "typescript": "^2.6.1"
+    "typescript": "^2.6.2"
   }
 }
