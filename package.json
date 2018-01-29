@@ -22,11 +22,11 @@
   "scripts": {
     "lint": "tslint --project tsconfig.json **/*.ts",
     "test:dev": "jest --watch",
-    "test": "npm run lint && jest --coverage --mapCoverage && bundlesize",
+    "test": "npm run lint && jest --coverage --mapCoverage",
     "dev": "tsc --watch",
     "size": "gzip-size dist/main.min.js",
     "build": "tsc && minify dist/main.js --out-file dist/main.min.js && cp dist/src/main.js dist/main.js && rm -rf dist/src && rm -rf dist/test",
-    "prepublishOnly": "npm run test && npm run build"
+    "prepublishOnly": "bundlesize && npm run test && npm run build"
   },
   "jest": {
     "testEnvironment": "node",
