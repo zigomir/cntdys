@@ -94,7 +94,7 @@ export const getNextDay = (year: Year, month: MonthNumber, day: number): IDay =>
  *
  * @returns {Object[][]}
  */
-export const calendarMonth = (year: any, month: any, startOfTheWeek: any = DayEnum.Sunday): IDay[][] => {
+export function calendarMonth (year: any, month: any, startOfTheWeek: any = DayEnum.Sunday): IDay[][] {
   year = parseInt(year, 10)
   month = parseInt(month, 10)
   startOfTheWeek = parseInt(startOfTheWeek, 10)

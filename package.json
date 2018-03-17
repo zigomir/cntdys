@@ -27,11 +27,11 @@
   "scripts": {
     "lint": "tslint --project tsconfig.json **/*.ts",
     "test:dev": "jest --watch",
-    "test": "npm run lint && jest --coverage && bundlesize",
+    "test": "npm run lint && jest --coverage && npm run build && bundlesize",
     "dev": "tsc --watch",
     "clean": "rm -rf build/* && rm -rf dist/*",
     "build": "npm run clean && tsc && cp build/src/main.js dist/main.js && minify dist/main.js --out-file dist/main.min.js",
-    "prepublishOnly": "npm run build && npm run test"
+    "prepublishOnly": "npm run test"
   },
   "jest": {
     "testEnvironment": "node",
