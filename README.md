@@ -1,6 +1,6 @@
 # count'em days
 
-> 646 B calendar (no UI)
+> less than KB JS calendar
 
 ## goals
 

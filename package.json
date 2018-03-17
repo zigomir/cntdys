@@ -5,6 +5,11 @@
   "keywords": [
     "calendar"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zigomir/cntdys.git"
+  },
+  "homepage": "https://github.com/zigomir/cntdys",
   "author": "Ziga Vidic <zigomir@gmail.com> (https://zigomir.com/)",
   "license": "MIT",
   "main": "dist/main.js",
@@ -22,11 +27,11 @@
   "scripts": {
     "lint": "tslint --project tsconfig.json **/*.ts",
     "test:dev": "jest --watch",
-    "test": "npm run lint && jest --coverage --mapCoverage",
+    "test": "npm run lint && jest --coverage && npm run build && bundlesize",
     "dev": "tsc --watch",
-    "size": "gzip-size dist/main.min.js",
-    "build": "tsc && minify dist/main.js --out-file dist/main.min.js && cp dist/src/main.js dist/main.js && rm -rf dist/src && rm -rf dist/test",
-    "prepublishOnly": "bundlesize && npm run test && npm run build"
+    "clean": "rm -rf build/* && rm -rf dist/*",
+    "build": "npm run clean && tsc && cp build/src/main.js dist/main.js && minify dist/main.js --out-file dist/main.min.js",
+    "prepublishOnly": "npm run test"
   },
   "jest": {
     "testEnvironment": "node",
@@ -40,12 +45,11 @@
     ]
   },
   "devDependencies": {
-    "@types/jest": "^22.1.0",
-    "babel-minify": "^0.2.0",
-    "bundlesize": "^0.15.3",
-    "gzip-size-cli": "^2.1.0",
-    "jest": "^22.1.4",
-    "ts-jest": "^22.0.1",
+    "@types/jest": "^22.2.0",
+    "babel-minify": "^0.3.0",
+    "bundlesize": "^0.16.0",
+    "jest": "^22.4.2",
+    "ts-jest": "^22.4.1",
     "tslint": "^5.9.1",
     "tslint-config-standard": "^7.0.0",
     "typescript": "^2.6.2"

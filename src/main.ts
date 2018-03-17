@@ -3,7 +3,7 @@ export { DayEnum, IDay, IMonth, MonthEnum, MonthNumber, Year }
 
 const isLeap = (year: Year) => year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0)
 
-export function getDaysInMonth (year: Year, month: MonthNumber): number {
+export const getDaysInMonth = (year: Year, month: MonthNumber): number => {
   const daysInMonth = [31, -1, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
   if (month === MonthEnum.February) {
@@ -13,7 +13,7 @@ export function getDaysInMonth (year: Year, month: MonthNumber): number {
   return daysInMonth[month - 1]
 }
 
-export function getPreviousMonth (year: Year, month: MonthNumber): IMonth {
+export const getPreviousMonth = (year: Year, month: MonthNumber): IMonth => {
   if (month === MonthEnum.January) {
     return {
       month: MonthEnum.December,
@@ -27,7 +27,7 @@ export function getPreviousMonth (year: Year, month: MonthNumber): IMonth {
   }
 }
 
-export function getNextMonth (year: Year, month: MonthNumber): IMonth {
+export const getNextMonth = (year: Year, month: MonthNumber): IMonth => {
   if (month === MonthEnum.December) {
     return {
       month: 1,
@@ -41,7 +41,7 @@ export function getNextMonth (year: Year, month: MonthNumber): IMonth {
   }
 }
 
-export function getPreviousDay (year: Year, month: MonthNumber, day: number): IDay {
+export const getPreviousDay = (year: Year, month: MonthNumber, day: number): IDay => {
   if (day === 1) {
     const prevMonth = getPreviousMonth(year, month)
     const lastDayInPrevMonth = getDaysInMonth(prevMonth.year, prevMonth.month)
@@ -63,7 +63,7 @@ export function getPreviousDay (year: Year, month: MonthNumber, day: number): ID
   }
 }
 
-export function getNextDay (year: Year, month: MonthNumber, day: number): IDay {
+export const getNextDay = (year: Year, month: MonthNumber, day: number): IDay => {
   const isLastDayInMonth = (y: Year, m: MonthNumber, d: number) => getDaysInMonth(y, m) === d
   if (isLastDayInMonth(year, month, day)) {
     const nextMonth = getNextMonth(year, month)
@@ -100,13 +100,13 @@ export function calendarMonth (year: any, month: any, startOfTheWeek: any = DayE
   startOfTheWeek = parseInt(startOfTheWeek, 10)
 
   if (!year || isNaN(year) || year < 1900 || year > 2100) {
-    throw Error('Wrong year. Please use number from 1900 to 2100')
+    throw Error('Wrong year. Use number from 1900 to 2100')
   }
   if (!month || isNaN(month) || month < 1 || month > 12) {
-    throw Error('Wrong month. Please use number from 1 to 12')
+    throw Error('Wrong month. Use number from 1 to 12')
   }
   if ((!startOfTheWeek && startOfTheWeek !== 0) || isNaN(startOfTheWeek) || startOfTheWeek < 0 || startOfTheWeek > 6) {
-    throw Error('Wrong start of the week. Please use number from 0 (for Sunday) to 6 (for Saturday)')
+    throw Error('Wrong start of the week. Use number from 0 to 6')
   }
 
   const firstDayInMonth = new Date(Date.UTC(year, month - 1, 1))
