@@ -100,13 +100,13 @@ export function calendarMonth (year: any, month: any, startOfTheWeek: any = DayE
   startOfTheWeek = parseInt(startOfTheWeek, 10)
 
   if (!year || isNaN(year) || year < 1900 || year > 2100) {
-    throw Error('Wrong year. Please use number from 1900 to 2100')
+    throw Error('Wrong year. Use number from 1900 to 2100')
   }
   if (!month || isNaN(month) || month < 1 || month > 12) {
-    throw Error('Wrong month. Please use number from 1 to 12')
+    throw Error('Wrong month. Use number from 1 to 12')
   }
   if ((!startOfTheWeek && startOfTheWeek !== 0) || isNaN(startOfTheWeek) || startOfTheWeek < 0 || startOfTheWeek > 6) {
-    throw Error('Wrong start of the week. Please use number from 0 (for Sunday) to 6 (for Saturday)')
+    throw Error('Wrong start of the week. Use number from 0 to 6')
   }
 
   const firstDayInMonth = new Date(Date.UTC(year, month - 1, 1))
