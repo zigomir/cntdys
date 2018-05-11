@@ -1,6 +1,6 @@
 {
   "name": "cntdys",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "more calendar for less bytes",
   "keywords": [
     "calendar"
@@ -30,7 +30,7 @@
     "test": "npm run lint && jest --coverage && npm run build && bundlesize",
     "dev": "tsc --watch",
     "clean": "rm -rf build/* && rm -rf dist/*",
-    "build": "npm run clean && tsc && cp build/src/main.js dist/main.js && minify dist/main.js --out-file dist/main.min.js",
+    "build": "npm run clean && tsc && cp build/src/main.js dist/main.js && uglifyjs --compress --mangle -- dist/main.js > dist/main.min.js",
     "prepublishOnly": "npm run test"
   },
   "jest": {
@@ -45,13 +45,13 @@
     ]
   },
   "devDependencies": {
-    "@types/jest": "^22.2.0",
-    "babel-minify": "^0.3.0",
-    "bundlesize": "^0.16.0",
-    "jest": "^22.4.2",
-    "ts-jest": "^22.4.1",
-    "tslint": "^5.9.1",
+    "@types/jest": "^22.2.3",
+    "bundlesize": "^0.17.0",
+    "jest": "^22.4.3",
+    "ts-jest": "^22.4.5",
+    "tslint": "^5.10.0",
     "tslint-config-standard": "^7.0.0",
-    "typescript": "^2.6.2"
+    "typescript": "^2.8.3",
+    "uglify-es": "^3.3.9"
   }
 }
