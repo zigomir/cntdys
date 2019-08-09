@@ -18,11 +18,11 @@ jobs:
     - name: install latest yarn
       run: npm install -g yarn
 
-    - name: npm install
-      run: npm install
+    - name: yarn install
+      run: yarn install
 
     - name: yarn build
       run: yarn build
 
-    - name: npm test
-      run: npm test
+    - name: yarn test
+      run: yarn test
