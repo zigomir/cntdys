@@ -29,7 +29,7 @@
     "test": "jest --coverage && bundlesize",
     "dev": "tsc --watch",
     "clean": "rm -rf build/* && rm -rf dist/*",
-    "build": "npm run clean && tsc && cp build/src/main.js dist/main.js && terser --compress --mangle -- dist/main.js > dist/main.min.js",
+    "build": "npm run clean && tsc && cp build/src/main.js dist/main.js && terser --module --compress --mangle -- dist/main.js > dist/main.min.js",
     "prepublishOnly": "npm run test"
   },
   "jest": {
