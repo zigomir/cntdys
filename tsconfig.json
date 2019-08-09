@@ -3,6 +3,8 @@
     "target": "esnext",
     "module": "esnext",
     "outDir": "build",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
     "strict": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
