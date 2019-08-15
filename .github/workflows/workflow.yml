@@ -1,11 +1,24 @@
 name: Build & Test
 on: [push]
-steps:
-- uses: actions/checkout@master
-- uses: actions/setup-node@v1
-  with:
-    node-version: 10.x
-- run: npm install -g yarn
-- run: yarn install
-- run: yarn build
-- run: yarn test
+jobs:
+  run:
+    name: Run
+    steps:
+    - uses: actions/checkout@master
+
+    - name: Set Node.js 10.x
+      uses: actions/setup-node@master
+      with:
+        version: 10.x
+
+    - name: install, build & test
+      run: npm install -g yarn
+
+    - name: yarn install
+      run: yarn install
+
+    - name: yarn build
+      run: yarn build
+
+    - name: yarn test
+      run: yarn test
