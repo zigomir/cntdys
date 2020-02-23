@@ -220,13 +220,13 @@ describe('calendarMonth', () => {
 describe('bad values', () => {
   test('calendarMonth fails fast when called with bad values', () => {
     [undefined, null, false, true, '123', 'abc'].forEach((badValue) => {
-      expect(() => calendarMonth(badValue, undefined)).toThrow('Wrong year. Use number from 1900 to 2100')
-      expect(() => calendarMonth(badValue, 1)).toThrow('Wrong year. Use number from 1900 to 2100')
-      expect(() => calendarMonth(2017, badValue)).toThrow('Wrong month. Use number from 1 to 12')
+      expect(() => calendarMonth(badValue, undefined)).toThrow('Year can be a number between 1900 and 3000')
+      expect(() => calendarMonth(badValue, 1)).toThrow('Year can be a number between 1900 and 3000')
+      expect(() => calendarMonth(2017, badValue)).toThrow('Month can be a number from 1 and 12')
       // because default parameter will kick in
       if (badValue !== undefined) {
         expect(() => calendarMonth(2017, 12, badValue))
-          .toThrow('Wrong start of the week. Use number from 0 to 6')
+          .toThrow('Start of the week can be a number from 0 and 6')
       }
     })
 
