@@ -1,6 +1,6 @@
 {
   "name": "cntdys",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "more calendar for less bytes",
   "keywords": [
     "calendar"
@@ -12,7 +12,7 @@
   "homepage": "https://github.com/zigomir/cntdys",
   "author": "Ziga Vidic <zigomir@gmail.com> (https://zigomir.com/)",
   "license": "MIT",
-  "main": "dist/main.js",
+  "main": "dist/main.commonjs.js",
   "module": "dist/main.js",
   "type": "module",
   "types": "dist/types/src/main.d.ts",
