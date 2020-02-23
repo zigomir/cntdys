@@ -1,6 +1,6 @@
 {
   "name": "cntdys",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "more calendar for less bytes",
   "keywords": [
     "calendar"
@@ -14,6 +14,7 @@
   "license": "MIT",
   "main": "dist/main.js",
   "module": "dist/main.js",
+  "type": "module",
   "types": "dist/types/src/main.d.ts",
   "files": [
     "dist/"
@@ -29,7 +30,9 @@
     "test": "jest --coverage && bundlesize",
     "dev": "tsc --watch",
     "clean": "rm -rf build/* && rm -rf dist/*",
-    "build": "npm run clean && tsc && cp build/src/main.js dist/main.js && terser --module --compress --mangle -- dist/main.js > dist/main.min.js",
+    "build:commonjs": "tsc --module CommonJS && cp build/src/main.js dist/main.commonjs.js",
+    "build:esm": "tsc && cp build/src/main.js dist/main.js && terser --module --compress --mangle -- dist/main.js > dist/main.min.js",
+    "build": "npm run clean && npm run build:commonjs && npm run build:esm",
     "prepublishOnly": "npm run test"
   },
   "jest": {
