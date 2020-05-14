@@ -25,3 +25,9 @@ or with `npm install cntdys`.
 ## what about ui?
 
 [nanocal](https://github.com/zigomir/nanocal)
+
+## compatible with deno
+
+```sh
+deno run test/deno.ts
+```
