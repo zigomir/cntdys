@@ -1,258 +1,253 @@
+import { test } from 'uvu'
+import * as assert from 'uvu/assert'
 import { calendarMonth, getDaysInMonth, getNextDay, getNextMonth, getPreviousDay, getPreviousMonth } from '../src/main'
 import { DayEnum, IMonth, MonthEnum } from '../src/types'
 
-describe('util functions', () => {
-  test('get days in month', () => {
-    expect(getDaysInMonth(2016, 2)).toBe(29)
-    expect(getDaysInMonth(2017, 2)).toBe(28)
-    expect(getDaysInMonth(2017, 1)).toBe(31)
-    expect(getDaysInMonth(2017, 8)).toBe(31)
+test('get days in month', () => {
+  assert.is(getDaysInMonth(2016, 2), 29)
+  assert.is(getDaysInMonth(2017, 2), 28)
+  assert.is(getDaysInMonth(2017, 1), 31)
+  assert.is(getDaysInMonth(2017, 8), 31)
+})
+
+test('getPreviousMonth', () => {
+  assert.equal(getPreviousMonth(2016, 1), {
+    month: 12,
+    year: 2015,
   })
 
-  test('getPreviousMonth', () => {
-    expect(getPreviousMonth(2016, 1)).toEqual({
-      month: 12,
-      year: 2015
-    })
+  assert.equal(getPreviousMonth(2016, 2), {
+    month: 1,
+    year: 2016,
+  })
+})
 
-    expect(getPreviousMonth(2016, 2)).toEqual({
-      month: 1,
-      year: 2016
-    })
+test('getNextMonth', () => {
+  assert.equal(getNextMonth(2016, 12), {
+    month: MonthEnum.January,
+    year: 2017,
   })
 
-  test('getNextMonth', () => {
-    expect(getNextMonth(2016, 12)).toEqual({
+  assert.equal(getNextMonth(2016, 1), {
+    month: MonthEnum.February,
+    year: 2016,
+  })
+})
+
+test('getPreviousDay', () => {
+  assert.equal(getPreviousDay(2016, 1, 1), {
+    dayInMonth: 31,
+    dayInWeek: DayEnum.Thursday,
+    month: {
+      month: MonthEnum.December,
+      year: 2015,
+    },
+  })
+
+  assert.equal(getPreviousDay(2016, 6, 1), {
+    dayInMonth: 31,
+    dayInWeek: DayEnum.Tuesday,
+    month: {
+      month: MonthEnum.May,
+      year: 2016,
+    },
+  })
+
+  assert.equal(getPreviousDay(2016, 1, 2), {
+    dayInMonth: 1,
+    dayInWeek: DayEnum.Friday,
+    month: {
       month: MonthEnum.January,
-      year: 2017
-    })
+      year: 2016,
+    },
+  })
 
-    expect(getNextMonth(2016, 1)).toEqual({
+  assert.equal(getPreviousDay(2016, 12, 31), {
+    dayInMonth: 30,
+    dayInWeek: DayEnum.Friday,
+    month: {
+      month: MonthEnum.December,
+      year: 2016,
+    },
+  })
+})
+
+test('getNextDay', () => {
+  assert.equal(getNextDay(2016, 2, 29), {
+    dayInMonth: 1,
+    dayInWeek: DayEnum.Tuesday,
+    month: {
+      month: MonthEnum.March,
+      year: 2016,
+    },
+  })
+
+  assert.equal(getNextDay(2016, 6, 1), {
+    dayInMonth: 2,
+    dayInWeek: DayEnum.Thursday,
+    month: {
+      month: MonthEnum.June,
+      year: 2016,
+    },
+  })
+
+  assert.equal(getNextDay(2016, 12, 31), {
+    dayInMonth: 1,
+    dayInWeek: DayEnum.Sunday,
+    month: {
+      month: MonthEnum.January,
+      year: 2017,
+    },
+  })
+
+  assert.equal(getNextDay(2016, 2, 28), {
+    dayInMonth: 29,
+    dayInWeek: DayEnum.Monday,
+    month: {
       month: MonthEnum.February,
-      year: 2016
-    })
+      year: 2016,
+    },
   })
 
-  test('getPreviousDay', () => {
-    expect(getPreviousDay(2016, 1, 1)).toEqual({
-      dayInMonth: 31,
-      dayInWeek: DayEnum.Thursday,
-      month: {
-        month: MonthEnum.December,
-        year: 2015
-      }
-    })
-
-    expect(getPreviousDay(2016, 6, 1)).toEqual({
-      dayInMonth: 31,
-      dayInWeek: DayEnum.Tuesday,
-      month: {
-        month: MonthEnum.May,
-        year: 2016
-      }
-    })
-
-    expect(getPreviousDay(2016, 1, 2)).toEqual({
-      dayInMonth: 1,
-      dayInWeek: DayEnum.Friday,
-      month: {
-        month: MonthEnum.January,
-        year: 2016
-      }
-    })
-
-    expect(getPreviousDay(2016, 12, 31)).toEqual({
-      dayInMonth: 30,
-      dayInWeek: DayEnum.Friday,
-      month: {
-        month: MonthEnum.December,
-        year: 2016
-      }
-    })
-  })
-
-  test('getNextDay', () => {
-    expect(getNextDay(2016, 2, 29)).toEqual({
-      dayInMonth: 1,
-      dayInWeek: DayEnum.Tuesday,
-      month: {
-        month: MonthEnum.March,
-        year: 2016
-      }
-    })
-
-    expect(getNextDay(2016, 6, 1)).toEqual({
-      dayInMonth: 2,
-      dayInWeek: DayEnum.Thursday,
-      month: {
-        month: MonthEnum.June,
-        year: 2016
-      }
-    })
-
-    expect(getNextDay(2016, 12, 31)).toEqual({
-      dayInMonth: 1,
-      dayInWeek: DayEnum.Sunday,
-      month: {
-        month: MonthEnum.January,
-        year: 2017
-      }
-    })
-
-    expect(getNextDay(2016, 2, 28)).toEqual({
-      dayInMonth: 29,
-      dayInWeek: DayEnum.Monday,
-      month: {
-        month: MonthEnum.February,
-        year: 2016
-      }
-    })
-
-    expect(getNextDay(2017, 2, 28)).toEqual({
-      dayInMonth: 1,
-      dayInWeek: DayEnum.Wednesday,
-      month: {
-        month: MonthEnum.March,
-        year: 2017
-      }
-    })
+  assert.equal(getNextDay(2017, 2, 28), {
+    dayInMonth: 1,
+    dayInWeek: DayEnum.Wednesday,
+    month: {
+      month: MonthEnum.March,
+      year: 2017,
+    },
   })
 })
 
-describe('calendarMonth', () => {
-  test('march 2016', () => {
-    const month: IMonth = { month: 3, year: 2016 }
-    const prevMonth = getPreviousMonth(month.year, month.month)
-    const nextMonth = getNextMonth(month.year, month.month)
-    const calendar = calendarMonth(month.year, month.month, DayEnum.Monday)
-    const numberOfWeeks = calendar.length
+test('march 2016', () => {
+  const month: IMonth = { month: 3, year: 2016 }
+  const prevMonth = getPreviousMonth(month.year, month.month)
+  const nextMonth = getNextMonth(month.year, month.month)
+  const calendar = calendarMonth(month.year, month.month, DayEnum.Monday)
+  const numberOfWeeks = calendar.length
 
-    expect(numberOfWeeks).toBe(6)
-    for (let i = 0; i < numberOfWeeks; i++) {
-      expect(calendar[i].length).toBe(7)
-    }
-    expect(calendar[5][7]).toBe(undefined)
-    expect(calendar[0][0]).toEqual({
-      dayInMonth: 29,
-      dayInWeek: DayEnum.Monday,
-      month: prevMonth
-    })
-    expect(calendar[0][1]).toEqual({
-      dayInMonth: 1,
-      dayInWeek: DayEnum.Tuesday,
-      month
-    })
-    expect(calendar[0][2]).toEqual({
-      dayInMonth: 2,
-      dayInWeek: DayEnum.Wednesday,
-      month
-    })
-    expect(calendar[0][6]).toEqual({
-      dayInMonth: 6,
-      dayInWeek: DayEnum.Sunday,
-      month
-    })
-    expect(calendar[2][3]).toEqual({
-      dayInMonth: 17,
-      dayInWeek: DayEnum.Thursday,
-      month
-    })
-    expect(calendar[5][6]).toEqual({
-      dayInMonth: 10,
-      dayInWeek: DayEnum.Sunday,
-      month: nextMonth
-    })
+  assert.is(numberOfWeeks, 6)
+  for (let i = 0; i < numberOfWeeks; i++) {
+    assert.is(calendar[i].length, 7)
+  }
+  assert.is(calendar[5][7], undefined)
+  assert.equal(calendar[0][0], {
+    dayInMonth: 29,
+    dayInWeek: DayEnum.Monday,
+    month: prevMonth,
   })
-
-  test('june 2017', () => {
-    const month: IMonth = { month: 6, year: 2017 }
-    const prevMonth = getPreviousMonth(month.year, month.month)
-    const nextMonth = getNextMonth(month.year, month.month)
-    const calendar = calendarMonth(month.year, month.month, DayEnum.Monday)
-
-    expect(calendar[0][0]).toEqual({
-      dayInMonth: 29,
-      dayInWeek: DayEnum.Monday,
-      month: prevMonth
-    })
-    expect(calendar[0][1]).toEqual({
-      dayInMonth: 30,
-      dayInWeek: DayEnum.Tuesday,
-      month: prevMonth
-    })
-    expect(calendar[0][2]).toEqual({
-      dayInMonth: 31,
-      dayInWeek: DayEnum.Wednesday,
-      month: prevMonth
-    })
-    expect(calendar[0][3]).toEqual({
-      dayInMonth: 1,
-      dayInWeek: DayEnum.Thursday,
-      month
-    })
-    expect(calendar[2][3]).toEqual({
-      dayInMonth: 15,
-      dayInWeek: DayEnum.Thursday,
-      month
-    })
-    expect(calendar[5][6]).toEqual({
-      dayInMonth: 9,
-      dayInWeek: DayEnum.Sunday,
-      month: nextMonth
-    })
+  assert.equal(calendar[0][1], {
+    dayInMonth: 1,
+    dayInWeek: DayEnum.Tuesday,
+    month,
   })
+  assert.equal(calendar[0][2], {
+    dayInMonth: 2,
+    dayInWeek: DayEnum.Wednesday,
+    month,
+  })
+  assert.equal(calendar[0][6], {
+    dayInMonth: 6,
+    dayInWeek: DayEnum.Sunday,
+    month,
+  })
+  assert.equal(calendar[2][3], {
+    dayInMonth: 17,
+    dayInWeek: DayEnum.Thursday,
+    month,
+  })
+  assert.equal(calendar[5][6], {
+    dayInMonth: 10,
+    dayInWeek: DayEnum.Sunday,
+    month: nextMonth,
+  })
+})
 
-  test('calendarMonth has days in right order', () => {
-    const calendar = calendarMonth(2017, 6, DayEnum.Monday)
+test('june 2017', () => {
+  const month: IMonth = { month: 6, year: 2017 }
+  const prevMonth = getPreviousMonth(month.year, month.month)
+  const nextMonth = getNextMonth(month.year, month.month)
+  const calendar = calendarMonth(month.year, month.month, DayEnum.Monday)
+
+  assert.equal(calendar[0][0], {
+    dayInMonth: 29,
+    dayInWeek: DayEnum.Monday,
+    month: prevMonth,
+  })
+  assert.equal(calendar[0][1], {
+    dayInMonth: 30,
+    dayInWeek: DayEnum.Tuesday,
+    month: prevMonth,
+  })
+  assert.equal(calendar[0][2], {
+    dayInMonth: 31,
+    dayInWeek: DayEnum.Wednesday,
+    month: prevMonth,
+  })
+  assert.equal(calendar[0][3], {
+    dayInMonth: 1,
+    dayInWeek: DayEnum.Thursday,
+    month,
+  })
+  assert.equal(calendar[2][3], {
+    dayInMonth: 15,
+    dayInWeek: DayEnum.Thursday,
+    month,
+  })
+  assert.equal(calendar[5][6], {
+    dayInMonth: 9,
+    dayInWeek: DayEnum.Sunday,
+    month: nextMonth,
+  })
+})
+
+test('calendarMonth has days in right order', () => {
+  const calendar = calendarMonth(2017, 6, DayEnum.Monday)
+  /* tslint:disable:prefer-for-of */
+  for (let i = 0; i < calendar.length; i++) {
+    assert.is(calendar[i].length, 7)
     /* tslint:disable:prefer-for-of */
-    for (let i = 0; i < calendar.length; i++) {
-      expect(calendar[i].length).toBe(7)
-      /* tslint:disable:prefer-for-of */
-      for (let j = 0; j < calendar[i].length; j++) {
-        expect(calendar[i][j].dayInWeek).toBe(j < 6 ? j + 1 : 0)
-        expect(calendar[i][j].dayInMonth >= 1).toBeTruthy()
-        expect(calendar[i][j].dayInMonth <= 31).toBeTruthy()
-      }
+    for (let j = 0; j < calendar[i].length; j++) {
+      assert.is(calendar[i][j].dayInWeek, j < 6 ? j + 1 : 0)
+      assert.ok(calendar[i][j].dayInMonth >= 1)
+      assert.ok(calendar[i][j].dayInMonth <= 31)
+    }
+  }
+})
+
+test('calendarMonth fails fast when called with bad values', () => {
+  ;[undefined, null, false, true, '123', 'abc'].forEach((badValue) => {
+    assert.throws(() => calendarMonth(badValue, undefined), /Year can be a number between 1900 and 3000/)
+    assert.throws(() => calendarMonth(badValue, 1), /Year can be a number between 1900 and 3000/)
+    assert.throws(() => calendarMonth(2017, badValue), /Month can be a number from 1 and 12/)
+    // because default parameter will kick in
+    if (badValue !== undefined) {
+      assert.throws(() => calendarMonth(2017, 12, badValue), /Start of the week can be a number from 0 and 6/)
     }
   })
+
+  assert.not.throws(() => calendarMonth(2017, 12))
+  assert.not.throws(() => calendarMonth('2017', '12'))
+  assert.not.throws(() => calendarMonth(2017, 12, 1))
+  assert.not.throws(() => calendarMonth(2017, 12, '1'))
 })
 
-describe('bad values', () => {
-  test('calendarMonth fails fast when called with bad values', () => {
-    [undefined, null, false, true, '123', 'abc'].forEach((badValue) => {
-      expect(() => calendarMonth(badValue, undefined)).toThrow('Year can be a number between 1900 and 3000')
-      expect(() => calendarMonth(badValue, 1)).toThrow('Year can be a number between 1900 and 3000')
-      expect(() => calendarMonth(2017, badValue)).toThrow('Month can be a number from 1 and 12')
-      // because default parameter will kick in
-      if (badValue !== undefined) {
-        expect(() => calendarMonth(2017, 12, badValue))
-          .toThrow('Start of the week can be a number from 0 and 6')
-      }
-    })
+test('oct 2017', () => {
+  const month: IMonth = { month: 10, year: 2017 }
+  const nextMonth = getNextMonth(month.year, month.month)
+  const calendar = calendarMonth(month.year, month.month)
 
-    expect(() => calendarMonth(2017, 12)).not.toThrow()
-    expect(() => calendarMonth('2017', '12')).not.toThrow()
-    expect(() => calendarMonth(2017, 12, 1)).not.toThrow()
-    expect(() => calendarMonth(2017, 12, '1')).not.toThrow()
+  assert.equal(calendar[0][0], {
+    dayInMonth: 1,
+    dayInWeek: DayEnum.Sunday,
+    month,
+  })
+
+  assert.equal(calendar[5][6], {
+    dayInMonth: 11,
+    dayInWeek: DayEnum.Saturday,
+    month: nextMonth,
   })
 })
 
-describe('starting week on a different day', () => {
-  test('oct 2017', () => {
-    const month: IMonth = { month: 10, year: 2017 }
-    const nextMonth = getNextMonth(month.year, month.month)
-    const calendar = calendarMonth(month.year, month.month)
-
-    expect(calendar[0][0]).toEqual({
-      dayInMonth: 1,
-      dayInWeek: DayEnum.Sunday,
-      month
-    })
-
-    expect(calendar[5][6]).toEqual({
-      dayInMonth: 11,
-      dayInWeek: DayEnum.Saturday,
-      month: nextMonth
-    })
-  })
-})
+test.run()
