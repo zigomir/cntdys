@@ -12,5 +12,14 @@
     "noFallthroughCasesInSwitch": true,
     "declaration": true,
     "declarationDir": "dist/types"
+  },
+  "ts-node": {
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "commonjs"
+    },
+    "include": [
+      "test/**/*"
+    ]
   }
 }
