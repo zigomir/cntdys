@@ -37,13 +37,13 @@
     "prepublishOnly": "npm run test"
   },
   "devDependencies": {
-    "@types/node": "^14.0.23",
+    "@types/node": "^14.11.2",
     "bundlesize": "^0.18.0",
-    "c8": "^7.2.1",
-    "terser": "^4.8.0",
-    "ts-node": "^8.10.2",
-    "typescript": "^3.9.6",
-    "uvu": "^0.2.2",
-    "watchlist": "^0.2.1"
+    "c8": "^7.3.1",
+    "terser": "^5.3.2",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.3",
+    "uvu": "^0.3.3",
+    "watchlist": "^0.2.3"
   }
 }
