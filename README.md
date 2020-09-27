@@ -1,3 +1,5 @@
+![](https://badgen.net/bundlephobia/minzip/cntdys)
+
 # count'em days
 
 > half KB JS calendar
