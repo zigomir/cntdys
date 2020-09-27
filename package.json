@@ -14,6 +14,7 @@
   "license": "MIT",
   "main": "dist/main.commonjs.js",
   "module": "dist/main.js",
+  "unpkg": "dist/main.js",
   "type": "module",
   "types": "dist/types/src/main.d.ts",
   "files": [
