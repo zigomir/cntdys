@@ -215,23 +215,6 @@ test('calendarMonth has days in right order', () => {
   }
 })
 
-test('calendarMonth fails fast when called with bad values', () => {
-  ;[undefined, null, false, true, '123', 'abc'].forEach((badValue) => {
-    assert.throws(() => calendarMonth(badValue, undefined), /Year can be a number between 1900 and 3000/)
-    assert.throws(() => calendarMonth(badValue, 1), /Year can be a number between 1900 and 3000/)
-    assert.throws(() => calendarMonth(2017, badValue), /Month can be a number from 1 and 12/)
-    // because default parameter will kick in
-    if (badValue !== undefined) {
-      assert.throws(() => calendarMonth(2017, 12, badValue), /Start of the week can be a number from 0 and 6/)
-    }
-  })
-
-  assert.not.throws(() => calendarMonth(2017, 12))
-  assert.not.throws(() => calendarMonth('2017', '12'))
-  assert.not.throws(() => calendarMonth(2017, 12, 1))
-  assert.not.throws(() => calendarMonth(2017, 12, '1'))
-})
-
 test('oct 2017', () => {
   const month: IMonth = { month: 10, year: 2017 }
   const nextMonth = getNextMonth(month.year, month.month)

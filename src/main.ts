@@ -94,21 +94,7 @@ export const getNextDay = (year: Year, month: MonthNumber, day: number): IDay =>
  *
  * @returns {Object[][]}
  */
-export function calendarMonth (year: any, month: any, startOfTheWeek: any = DayEnum.Sunday): IDay[][] {
-  year = parseInt(year, 10)
-  month = parseInt(month, 10)
-  startOfTheWeek = parseInt(startOfTheWeek, 10)
-
-  if (!year || isNaN(year) || year < 1900 || year > 2100) {
-    throw Error('Year can be a number between 1900 and 3000')
-  }
-  if (!month || isNaN(month) || month < 1 || month > 12) {
-    throw Error('Month can be a number from 1 and 12')
-  }
-  if ((!startOfTheWeek && startOfTheWeek !== 0) || isNaN(startOfTheWeek) || startOfTheWeek < 0 || startOfTheWeek > 6) {
-    throw Error('Start of the week can be a number from 0 and 6')
-  }
-
+export function calendarMonth (year: number, month: number, startOfTheWeek: number = DayEnum.Sunday): IDay[][] {
   const firstDayInMonth = new Date(Date.UTC(year, month - 1, 1))
   let startingDay: IDay = {
     dayInMonth: firstDayInMonth.getUTCDate(),
@@ -127,24 +113,24 @@ export function calendarMonth (year: any, month: any, startOfTheWeek: any = DayE
     startingDay = previousDay
   }
 
-  const DAYS_IN_WEEK = 7
-  const WEEKS_IN_CALENDAR = 6
-  const MONTH_CALENDAR_DAYS_NUMBER = DAYS_IN_WEEK * WEEKS_IN_CALENDAR
+  const daysInWeek = 7
+  const weeksInCalendarMonth = 6
+  const calendarMonthDays = daysInWeek * weeksInCalendarMonth
 
   const days: IDay[] = []
   let currentDay = startingDay
   // then go next day up until all 42 (6 weeks) are filled
-  while (days.length < MONTH_CALENDAR_DAYS_NUMBER) {
+  while (days.length < calendarMonthDays) {
     days.push(currentDay)
     currentDay = getNextDay(currentDay.month.year, currentDay.month.month, currentDay.dayInMonth)
   }
 
   return [
-    days.slice(DAYS_IN_WEEK * 0, DAYS_IN_WEEK * 1),
-    days.slice(DAYS_IN_WEEK * 1, DAYS_IN_WEEK * 2),
-    days.slice(DAYS_IN_WEEK * 2, DAYS_IN_WEEK * 3),
-    days.slice(DAYS_IN_WEEK * 3, DAYS_IN_WEEK * 4),
-    days.slice(DAYS_IN_WEEK * 4, DAYS_IN_WEEK * 5),
-    days.slice(DAYS_IN_WEEK * 5, DAYS_IN_WEEK * 6)
+    days.slice(daysInWeek * 0, daysInWeek * 1),
+    days.slice(daysInWeek * 1, daysInWeek * 2),
+    days.slice(daysInWeek * 2, daysInWeek * 3),
+    days.slice(daysInWeek * 3, daysInWeek * 4),
+    days.slice(daysInWeek * 4, daysInWeek * 5),
+    days.slice(daysInWeek * 5, daysInWeek * 6)
   ]
 }

@@ -1,6 +1,6 @@
 # count'em days
 
-> less than KB JS calendar
+> half KB JS calendar
 
 ## goals
 
