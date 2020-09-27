@@ -24,4 +24,4 @@ or with `npm install cntdys`.
 
 ## what about ui?
 
-[nanocal](https://github.com/zigomir/nanocal)
+[caly](https://github.com/zigomir/caly)
