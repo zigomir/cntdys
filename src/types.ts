@@ -1,3 +1,4 @@
+export { calendarMonth, getDaysInMonth, getNextDay, getPreviousDay, getNextMonth, getPreviousMonth } from './main'
 export type Year = number
 export type MonthNumber = MonthEnum
 
