@@ -1,5 +1,4 @@
 import { DayEnum, IDay, IMonth, MonthEnum, MonthNumber, Year } from './types'
-export { DayEnum, IDay, IMonth, MonthEnum, MonthNumber, Year }
 
 const isLeap = (year: Year) => year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0)
 

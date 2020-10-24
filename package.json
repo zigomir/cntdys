@@ -1,6 +1,6 @@
 {
   "name": "cntdys",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "more calendar for less bytes",
   "keywords": [
     "calendar"
@@ -12,19 +12,24 @@
   "homepage": "https://github.com/zigomir/cntdys",
   "author": "Ziga Vidic <ziga@hey.com> (https://ziga.dev/)",
   "license": "MIT",
-  "main": "dist/main.commonjs.js",
-  "module": "dist/main.js",
-  "unpkg": "dist/main.js",
+  "main": "./dist/main.commonjs.js",
+  "module": "./dist/main.js",
+  "unpkg": "./dist/main.js",
   "type": "module",
-  "types": "dist/types/src/main.d.ts",
+  "types": "./dist/src/types.d.ts",
   "files": [
     "dist/"
   ],
+  "exports": {
+    "import": "./dist/main.js",
+    "require": "./dist/main.commonjs.js"
+  },
   "scripts": {
     "test": "yarn test:coverage && yarn test:bundlesize",
     "test:dev": "uvu -r ts-node/register test",
     "test:bundlesize": "bundlesize",
-    "test:coverage": "c8 --include=src yarn test:dev",
+    "test:coverage": "c8 --check-coverage --lines 100 --functions 100 --branches 100 --include=src/main.ts yarn test:dev",
+    "test:coverage:debug": "c8 --include=src/main.ts --reporter=html yarn test:dev",
     "dev": "tsc --watch",
     "clean": "rm -rf build/* && rm -rf dist/*",
     "build:commonjs": "tsc --module CommonJS && cp build/src/main.js dist/main.commonjs.js",
