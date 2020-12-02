@@ -341,10 +341,15 @@ detect-libc@^1.0.3:
   resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-1.0.3.tgz#fa137c4bd698edf55cd5cd02ac559f91a4c4ba9b"
   integrity sha1-+hN8S9aY7fVc1c0CrFWfkaTEups=
 
-diff@^4.0.1, diff@^4.0.2:
+diff@^4.0.1:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/diff/-/diff-4.0.2.tgz#60f3aecb89d5fae520c11aa19efc2bb982aade7d"
   integrity sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==
+
+diff@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/diff/-/diff-5.0.0.tgz#7ed6ad76d859d030787ec35855f5b1daf31d852b"
+  integrity sha512-/VTCrvm5Z0JGty/BWHljh+BAiw3IK+2j87NGMu8Nwc/f48WoDAC395uomO9ZD117ZOBaHmkX1oyLvkVM/aIT3w==
 
 duplexer@^0.1.1:
   version "0.1.2"
@@ -1113,13 +1118,13 @@ util-deprecate@^1.0.1, util-deprecate@~1.0.1:
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
 
-uvu@^0.4.0:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/uvu/-/uvu-0.4.1.tgz#a173671ac465560f6ac42239959dcd80acb5e410"
-  integrity sha512-JgAGSdts0VawIRPpnG4t1G5O0RoSrkJZTvTH+iSrFrlsJq9w12hksrfvd8wHIVAw/215T7WfQalCwYa3vN8tTA==
+uvu@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/uvu/-/uvu-0.5.1.tgz#938b85f96b8a478e585363ad1849933b6c481b28"
+  integrity sha512-JGxttnOGDFs77FaZ0yMUHIzczzQ5R1IlDeNW6Wymw6gAscwMdAffVOP6TlxLIfReZyK8tahoGwWZaTCJzNFDkg==
   dependencies:
     dequal "^2.0.0"
-    diff "^4.0.2"
+    diff "^5.0.0"
     kleur "^4.0.3"
     sade "^1.7.3"
     totalist "^2.0.0"
