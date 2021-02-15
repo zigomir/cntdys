@@ -1,6 +1,6 @@
 import { DayEnum, IDay, IMonth, MonthEnum, MonthNumber, Year } from './types'
 
-const isLeap = (year: Year) => year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0)
+const isLeap = (year: number) => new Date(year, 1, 29).getDate() === 29
 
 export const getDaysInMonth = (year: Year, month: MonthNumber): number => {
   const daysInMonth = [31, -1, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
