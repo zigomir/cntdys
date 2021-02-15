@@ -1,41 +1,40 @@
-import { test } from 'uvu'
-import * as assert from 'uvu/assert'
+import { test } from 'zora'
 import { calendarMonth, getDaysInMonth, getNextDay, getNextMonth, getPreviousDay, getPreviousMonth } from '../src/main'
 import { DayEnum, IMonth, MonthEnum } from '../src/types'
 
-test('get days in month', () => {
-  assert.is(getDaysInMonth(2016, 2), 29)
-  assert.is(getDaysInMonth(2017, 2), 28)
-  assert.is(getDaysInMonth(2017, 1), 31)
-  assert.is(getDaysInMonth(2017, 8), 31)
+test('get days in month', (t) => {
+  t.is(getDaysInMonth(2016, 2), 29)
+  t.is(getDaysInMonth(2017, 2), 28)
+  t.is(getDaysInMonth(2017, 1), 31)
+  t.is(getDaysInMonth(2017, 8), 31)
 })
 
-test('getPreviousMonth', () => {
-  assert.equal(getPreviousMonth(2016, 1), {
+test('getPreviousMonth', (t) => {
+  t.equal(getPreviousMonth(2016, 1), {
     month: 12,
     year: 2015,
   })
 
-  assert.equal(getPreviousMonth(2016, 2), {
+  t.equal(getPreviousMonth(2016, 2), {
     month: 1,
     year: 2016,
   })
 })
 
-test('getNextMonth', () => {
-  assert.equal(getNextMonth(2016, 12), {
+test('getNextMonth', (t) => {
+  t.equal(getNextMonth(2016, 12), {
     month: MonthEnum.January,
     year: 2017,
   })
 
-  assert.equal(getNextMonth(2016, 1), {
+  t.equal(getNextMonth(2016, 1), {
     month: MonthEnum.February,
     year: 2016,
   })
 })
 
-test('getPreviousDay', () => {
-  assert.equal(getPreviousDay(2016, 1, 1), {
+test('getPreviousDay', (t) => {
+  t.equal(getPreviousDay(2016, 1, 1), {
     dayInMonth: 31,
     dayInWeek: DayEnum.Thursday,
     month: {
@@ -44,7 +43,7 @@ test('getPreviousDay', () => {
     },
   })
 
-  assert.equal(getPreviousDay(2016, 6, 1), {
+  t.equal(getPreviousDay(2016, 6, 1), {
     dayInMonth: 31,
     dayInWeek: DayEnum.Tuesday,
     month: {
@@ -53,7 +52,7 @@ test('getPreviousDay', () => {
     },
   })
 
-  assert.equal(getPreviousDay(2016, 1, 2), {
+  t.equal(getPreviousDay(2016, 1, 2), {
     dayInMonth: 1,
     dayInWeek: DayEnum.Friday,
     month: {
@@ -62,7 +61,7 @@ test('getPreviousDay', () => {
     },
   })
 
-  assert.equal(getPreviousDay(2016, 12, 31), {
+  t.equal(getPreviousDay(2016, 12, 31), {
     dayInMonth: 30,
     dayInWeek: DayEnum.Friday,
     month: {
@@ -72,8 +71,8 @@ test('getPreviousDay', () => {
   })
 })
 
-test('getNextDay', () => {
-  assert.equal(getNextDay(2016, 2, 29), {
+test('getNextDay', (t) => {
+  t.equal(getNextDay(2016, 2, 29), {
     dayInMonth: 1,
     dayInWeek: DayEnum.Tuesday,
     month: {
@@ -82,7 +81,7 @@ test('getNextDay', () => {
     },
   })
 
-  assert.equal(getNextDay(2016, 6, 1), {
+  t.equal(getNextDay(2016, 6, 1), {
     dayInMonth: 2,
     dayInWeek: DayEnum.Thursday,
     month: {
@@ -91,7 +90,7 @@ test('getNextDay', () => {
     },
   })
 
-  assert.equal(getNextDay(2016, 12, 31), {
+  t.equal(getNextDay(2016, 12, 31), {
     dayInMonth: 1,
     dayInWeek: DayEnum.Sunday,
     month: {
@@ -100,7 +99,7 @@ test('getNextDay', () => {
     },
   })
 
-  assert.equal(getNextDay(2016, 2, 28), {
+  t.equal(getNextDay(2016, 2, 28), {
     dayInMonth: 29,
     dayInWeek: DayEnum.Monday,
     month: {
@@ -109,7 +108,7 @@ test('getNextDay', () => {
     },
   })
 
-  assert.equal(getNextDay(2017, 2, 28), {
+  t.equal(getNextDay(2017, 2, 28), {
     dayInMonth: 1,
     dayInWeek: DayEnum.Wednesday,
     month: {
@@ -119,118 +118,116 @@ test('getNextDay', () => {
   })
 })
 
-test('march 2016', () => {
+test('march 2016', (t) => {
   const month: IMonth = { month: 3, year: 2016 }
   const prevMonth = getPreviousMonth(month.year, month.month)
   const nextMonth = getNextMonth(month.year, month.month)
   const calendar = calendarMonth(month.year, month.month, DayEnum.Monday)
   const numberOfWeeks = calendar.length
 
-  assert.is(numberOfWeeks, 6)
+  t.is(numberOfWeeks, 6)
   for (let i = 0; i < numberOfWeeks; i++) {
-    assert.is(calendar[i].length, 7)
+    t.is(calendar[i].length, 7)
   }
-  assert.is(calendar[5][7], undefined)
-  assert.equal(calendar[0][0], {
+  t.is(calendar[5][7], undefined)
+  t.equal(calendar[0][0], {
     dayInMonth: 29,
     dayInWeek: DayEnum.Monday,
     month: prevMonth,
   })
-  assert.equal(calendar[0][1], {
+  t.equal(calendar[0][1], {
     dayInMonth: 1,
     dayInWeek: DayEnum.Tuesday,
     month,
   })
-  assert.equal(calendar[0][2], {
+  t.equal(calendar[0][2], {
     dayInMonth: 2,
     dayInWeek: DayEnum.Wednesday,
     month,
   })
-  assert.equal(calendar[0][6], {
+  t.equal(calendar[0][6], {
     dayInMonth: 6,
     dayInWeek: DayEnum.Sunday,
     month,
   })
-  assert.equal(calendar[2][3], {
+  t.equal(calendar[2][3], {
     dayInMonth: 17,
     dayInWeek: DayEnum.Thursday,
     month,
   })
-  assert.equal(calendar[5][6], {
+  t.equal(calendar[5][6], {
     dayInMonth: 10,
     dayInWeek: DayEnum.Sunday,
     month: nextMonth,
   })
 })
 
-test('june 2017', () => {
+test('june 2017', (t) => {
   const month: IMonth = { month: 6, year: 2017 }
   const prevMonth = getPreviousMonth(month.year, month.month)
   const nextMonth = getNextMonth(month.year, month.month)
   const calendar = calendarMonth(month.year, month.month, DayEnum.Monday)
 
-  assert.equal(calendar[0][0], {
+  t.equal(calendar[0][0], {
     dayInMonth: 29,
     dayInWeek: DayEnum.Monday,
     month: prevMonth,
   })
-  assert.equal(calendar[0][1], {
+  t.equal(calendar[0][1], {
     dayInMonth: 30,
     dayInWeek: DayEnum.Tuesday,
     month: prevMonth,
   })
-  assert.equal(calendar[0][2], {
+  t.equal(calendar[0][2], {
     dayInMonth: 31,
     dayInWeek: DayEnum.Wednesday,
     month: prevMonth,
   })
-  assert.equal(calendar[0][3], {
+  t.equal(calendar[0][3], {
     dayInMonth: 1,
     dayInWeek: DayEnum.Thursday,
     month,
   })
-  assert.equal(calendar[2][3], {
+  t.equal(calendar[2][3], {
     dayInMonth: 15,
     dayInWeek: DayEnum.Thursday,
     month,
   })
-  assert.equal(calendar[5][6], {
+  t.equal(calendar[5][6], {
     dayInMonth: 9,
     dayInWeek: DayEnum.Sunday,
     month: nextMonth,
   })
 })
 
-test('calendarMonth has days in right order', () => {
+test('calendarMonth has days in right order', (t) => {
   const calendar = calendarMonth(2017, 6, DayEnum.Monday)
   /* tslint:disable:prefer-for-of */
   for (let i = 0; i < calendar.length; i++) {
-    assert.is(calendar[i].length, 7)
+    t.is(calendar[i].length, 7)
     /* tslint:disable:prefer-for-of */
     for (let j = 0; j < calendar[i].length; j++) {
-      assert.is(calendar[i][j].dayInWeek, j < 6 ? j + 1 : 0)
-      assert.ok(calendar[i][j].dayInMonth >= 1)
-      assert.ok(calendar[i][j].dayInMonth <= 31)
+      t.is(calendar[i][j].dayInWeek, j < 6 ? j + 1 : 0)
+      t.ok(calendar[i][j].dayInMonth >= 1)
+      t.ok(calendar[i][j].dayInMonth <= 31)
     }
   }
 })
 
-test('oct 2017', () => {
+test('oct 2017', (t) => {
   const month: IMonth = { month: 10, year: 2017 }
   const nextMonth = getNextMonth(month.year, month.month)
   const calendar = calendarMonth(month.year, month.month)
 
-  assert.equal(calendar[0][0], {
+  t.equal(calendar[0][0], {
     dayInMonth: 1,
     dayInWeek: DayEnum.Sunday,
     month,
   })
 
-  assert.equal(calendar[5][6], {
+  t.equal(calendar[5][6], {
     dayInMonth: 11,
     dayInWeek: DayEnum.Saturday,
     month: nextMonth,
   })
 })
-
-test.run()
