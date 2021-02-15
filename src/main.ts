@@ -1,8 +1,8 @@
-import { DayEnum, IDay, IMonth, MonthEnum, MonthNumber, Year } from './types'
+import { DayEnum, IDay, IMonth, MonthEnum, MonthNumber } from './types'
 
 const isLeap = (year: number) => new Date(year, 1, 29).getDate() === 29
 
-export const getDaysInMonth = (year: Year, month: MonthNumber): number => {
+export const getDaysInMonth = (year: number, month: MonthNumber): number => {
   const daysInMonth = [31, -1, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
   if (month === MonthEnum.February) {
@@ -12,7 +12,7 @@ export const getDaysInMonth = (year: Year, month: MonthNumber): number => {
   return daysInMonth[month - 1]
 }
 
-export const getPreviousMonth = (year: Year, month: MonthNumber): IMonth => {
+export const getPreviousMonth = (year: number, month: MonthNumber): IMonth => {
   if (month === MonthEnum.January) {
     return {
       month: MonthEnum.December,
@@ -26,7 +26,7 @@ export const getPreviousMonth = (year: Year, month: MonthNumber): IMonth => {
   }
 }
 
-export const getNextMonth = (year: Year, month: MonthNumber): IMonth => {
+export const getNextMonth = (year: number, month: MonthNumber): IMonth => {
   if (month === MonthEnum.December) {
     return {
       month: 1,
@@ -40,7 +40,7 @@ export const getNextMonth = (year: Year, month: MonthNumber): IMonth => {
   }
 }
 
-export const getPreviousDay = (year: Year, month: MonthNumber, day: number): IDay => {
+export const getPreviousDay = (year: number, month: MonthNumber, day: number): IDay => {
   if (day === 1) {
     const prevMonth = getPreviousMonth(year, month)
     const lastDayInPrevMonth = getDaysInMonth(prevMonth.year, prevMonth.month)
@@ -62,8 +62,8 @@ export const getPreviousDay = (year: Year, month: MonthNumber, day: number): IDa
   }
 }
 
-export const getNextDay = (year: Year, month: MonthNumber, day: number): IDay => {
-  const isLastDayInMonth = (y: Year, m: MonthNumber, d: number) => getDaysInMonth(y, m) === d
+export const getNextDay = (year: number, month: MonthNumber, day: number): IDay => {
+  const isLastDayInMonth = (y: number, m: MonthNumber, d: number) => getDaysInMonth(y, m) === d
   if (isLastDayInMonth(year, month, day)) {
     const nextMonth = getNextMonth(year, month)
     const nextDayOfNextMonth = new Date(Date.UTC(nextMonth.year, nextMonth.month - 1, 1))

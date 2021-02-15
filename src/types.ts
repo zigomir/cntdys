@@ -1,5 +1,4 @@
 export { calendarMonth, getDaysInMonth, getNextDay, getPreviousDay, getNextMonth, getPreviousMonth } from './main'
-export type Year = number
 export type MonthNumber = MonthEnum
 
 export interface IDay {
@@ -9,7 +8,7 @@ export interface IDay {
 }
 
 export interface IMonth {
-  year: Year
+  year: number
   month: MonthEnum
 }
 
