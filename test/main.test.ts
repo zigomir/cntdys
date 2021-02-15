@@ -1,5 +1,5 @@
 import { test } from 'zora'
-import { calendarMonth, getDaysInMonth, getNextDay, getNextMonth, getPreviousDay, getPreviousMonth } from '../src/main'
+import { calendarMonth, getDaysInMonth, getNextDay, getNextMonth, getPreviousDay, getPreviousMonth } from '../src/main.js'
 import { DayEnum, IMonth, MonthEnum } from '../src/types'
 
 test('get days in month', (t) => {

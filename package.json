@@ -19,28 +19,25 @@
   "files": [
     "dist/"
   ],
+  "type": "module",
   "exports": {
-    "import": "./dist/main.js",
-    "require": "./dist/main.commonjs.js"
+    "import": "./dist/main.js"
   },
   "scripts": {
     "test": "yarn test:coverage && yarn test:bundlesize",
-    "test:dev": "ts-node test/main.test.ts",
+    "test:dev": "tsc && node build/test/main.test.js",
     "test:bundlesize": "bundlesize",
     "test:coverage": "c8 --check-coverage --lines 100 --functions 100 --branches 100 --include=src/main.ts yarn test:dev",
     "test:coverage:debug": "c8 --include=src/main.ts --reporter=html yarn test:dev",
     "dev": "tsc --watch",
     "clean": "rm -rf build/* && rm -rf dist/*",
-    "build:commonjs": "tsc --module CommonJS && cp build/src/main.js dist/main.commonjs.js",
-    "build:esm": "tsc && cp build/src/main.js dist/main.js && terser --module --compress --mangle -- dist/main.js > dist/main.min.js",
-    "build": "yarn clean && yarn build:commonjs && yarn build:esm",
+    "build": "yarn clean && tsc && cp build/src/main.js dist/main.js && terser --module --compress --mangle -- dist/main.js > dist/main.min.js",
     "prepublishOnly": "yarn test"
   },
   "devDependencies": {
     "bundlesize": "^0.18.1",
     "c8": "^7.5.0",
     "terser": "^5.6.0",
-    "ts-node": "^9.1.1",
     "typescript": "^4.1.5",
     "zora": "^4.0.2"
   },
