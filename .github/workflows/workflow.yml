@@ -10,6 +10,10 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: "16.x"
-      - run: pnpm
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.28.0
+          run_install: true
+
       - run: pnpm run build
       - run: pnpm run test
