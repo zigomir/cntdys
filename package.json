@@ -12,14 +12,15 @@
   "homepage": "https://github.com/zigomir/cntdys",
   "author": "Ziga Vidic <ziga@hey.com> (https://ziga.dev/)",
   "license": "MIT",
-  "module": "./dist/main.js",
-  "types": "./dist/src/types.d.ts",
   "files": [
     "dist/"
   ],
   "type": "module",
   "exports": {
-    "import": "./dist/main.js"
+    ".": {
+      "types": "./dist/src/types.d.ts",
+      "import": "./dist/main.js"
+    }
   },
   "scripts": {
     "test": "tsc && node build/test/main.test.js",
