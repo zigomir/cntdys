@@ -1,6 +1,6 @@
 {
   "name": "cntdys",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "more calendar for less bytes",
   "keywords": [
     "calendar"
@@ -28,8 +28,8 @@
     "build": "pnpm run clean && tsc && cp build/src/main.js dist/main.js && terser --module --compress --mangle -- dist/main.js > dist/main.min.js"
   },
   "devDependencies": {
-    "terser": "^5.10.0",
-    "typescript": "^4.5.5",
-    "zora": "^5.0.2"
+    "terser": "^5.17.1",
+    "typescript": "^5.0.4",
+    "zora": "^5.2.0"
   }
 }
