@@ -5,18 +5,18 @@ export {
   getNextMonth,
   getPreviousDay,
   getPreviousMonth,
-} from "./main.ts";
-export type MonthNumber = MonthEnum;
+} from './main.ts'
+export type MonthNumber = MonthEnum
 
 export interface IDay {
-  dayInWeek: DayEnum;
-  dayInMonth: number;
-  month: IMonth;
+  dayInWeek: DayEnum
+  dayInMonth: number
+  month: IMonth
 }
 
 export interface IMonth {
-  year: number;
-  month: MonthEnum;
+  year: number
+  month: MonthEnum
 }
 
 export const enum MonthEnum {
