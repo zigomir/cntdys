@@ -1,4 +1,10 @@
-import { DayEnum, IDay, IMonth, MonthEnum, MonthNumber } from './types.ts'
+import {
+  DayEnum,
+  type IDay,
+  type IMonth,
+  MonthEnum,
+  type MonthNumber,
+} from './types.ts'
 
 const isLeap = (year: number) => new Date(year, 1, 29).getDate() === 29
 

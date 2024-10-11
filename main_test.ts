@@ -8,7 +8,7 @@ import {
   getPreviousDay,
   getPreviousMonth,
 } from './main.ts'
-import { DayEnum, IMonth, MonthEnum } from './types.ts'
+import { DayEnum, type IMonth, MonthEnum } from './types.ts'
 
 Deno.test('get days in month', () => {
   assertEquals(getDaysInMonth(2016, 2), 29)
