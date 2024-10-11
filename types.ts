@@ -1,4 +1,11 @@
-export { calendarMonth, getDaysInMonth, getNextDay, getPreviousDay, getNextMonth, getPreviousMonth } from './main'
+export {
+  calendarMonth,
+  getDaysInMonth,
+  getNextDay,
+  getNextMonth,
+  getPreviousDay,
+  getPreviousMonth,
+} from './main.ts'
 export type MonthNumber = MonthEnum
 
 export interface IDay {
@@ -24,7 +31,7 @@ export const enum MonthEnum {
   September,
   October,
   November,
-  December
+  December,
 }
 
 export const enum DayEnum {
@@ -34,5 +41,5 @@ export const enum DayEnum {
   Wednesday,
   Thursday,
   Friday,
-  Saturday
+  Saturday,
 }

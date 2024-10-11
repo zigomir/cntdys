@@ -1,0 +1,16 @@
+{
+  "name": "@ziga/cntdys",
+  "version": "0.7.0",
+  "exports": "./main.ts",
+  "license": "MIT",
+  "tasks": {
+    "dev": "deno test --watch ."
+  },
+  "imports": {
+    "@std/assert": "jsr:@std/assert@1"
+  },
+  "fmt": {
+    "semiColons": false,
+    "singleQuote": true
+  }
+}
