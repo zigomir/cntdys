@@ -1,4 +1,7 @@
 {
+  "name": "@ziga/cntdys",
+  "version": "0.7.0",
+  "exports": "./main.ts",
   "tasks": {
     "dev": "deno test --watch ."
   },
