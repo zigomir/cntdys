@@ -10,14 +10,18 @@
 - minimal size
 - modern – use ES modules for delivery
 
+## development
+
+- developed with Deno v2
+
 ## usage
 
 ```html
 <script type="module">
-  import { calendarMonth } from 'https://unpkg.com/cntdys@latest/dist/main.min.js'
-  console.log('calendarMonth', calendarMonth(2017, 9))
+  import { calendarMonth } from "https://unpkg.com/cntdys@latest/dist/main.min.js";
+  console.log("calendarMonth", calendarMonth(2017, 9));
   // or with different start of the week
-  console.log('calendarMonth', calendarMonth(2017, 9, 1)) // start week on Monday (0 = Sunday)
+  console.log("calendarMonth", calendarMonth(2017, 9, 1)); // start week on Monday (0 = Sunday)
 </script>
 ```
 
